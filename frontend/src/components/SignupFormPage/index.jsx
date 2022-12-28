@@ -14,7 +14,7 @@ const SignupFormPage = () => {
     const [errors, setErrors] = useState([])
 
 
-    if(sessionUser) return <Redirect to="/" />;
+    if(sessionUser) return <Redirect to="/channel/@me" />;
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -39,47 +39,53 @@ const SignupFormPage = () => {
     return (
         <div className="form-parent">
             <div className="register-form-container">
-                <form onSubmit={handleSubmit}>
-                    <p>Create an Account</p>
-                    <ul>
+                <form onSubmit={handleSubmit} className="register-form">
+                    <div className="reg-above-inputs-container">
+                        <p>Create an Account</p>
+                    </div>
+                    {/* <ul>
                     {errors.map(error => <li key={error}>{error}</li>)}
-                    </ul>
-                    <label>
-                    Email
+                    </ul> */}
+                    <label id="top-label" className="reg-secondary-text">
+                        EMAIL
+                    </label>
                     <input
                         type="text"
+                        name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
+                    <label className="reg-secondary-text">
+                        USERNAME
                     </label>
-                    <label>
-                        Username
-                        <input
+                    <input
                         type="text"
+                        name="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
+                    <label className="reg-secondary-text">
+                        PASSWORD
                     </label>
-                    <label>
-                    Password
                     <input
                         type="password"
+                        name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                    <label className="reg-secondary-text">
+                        CONFIRM PASSWORD
                     </label>
-                    <label>
-                    Confirm Password
                     <input
                         type="password"
+                        name="confirm-password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
-                    </label>
                     <button type="submit">Continue</button>
                     <Link className="login-link" to="/login">
                         Already have an account?

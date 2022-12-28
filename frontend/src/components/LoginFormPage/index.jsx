@@ -4,6 +4,7 @@ import { login } from "../../store/session";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import './LoginForm.css'
+import QRCode from "./QRcode";
 
 
 const LoginFormPage = () => {
@@ -39,7 +40,7 @@ const LoginFormPage = () => {
         <div className="form-parent">
             {/* <button className="home-button">Echo</button> */}
             <div className="form-container">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="login-form">
                     <div className="above-inputs-container">
                         <center>
                           <h1 className="above-inputs">Welcome back!</h1>
@@ -48,29 +49,29 @@ const LoginFormPage = () => {
                           <p className="above-inputs secondary-text">We're so excited to see you again!</p>
                         </center>
                     </div>
-                    <ul>
+                    {/* <ul>
                         {errors.map(error => <li key={error}>{error}</li>)}
-                    </ul>
+                    </ul> */}
                     <label htmlFor="credential" className="secondary-text">
                         USERNAME OR EMAIL <span>*</span>
-                        <input
+                    </label>
+                    <input
                             type="text"
                             name="credential"
                             value={credential}
                             onChange={(e) => setCredential(e.target.value)}
                             required
                         />
-                    </label>
                     <label htmlFor="password" className="secondary-text">
                         PASSWORD <span>*</span>
-                        <input
+                    </label>
+                    <input
                             type="password"
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                    </label>
                     <button type="submit">Log In</button>
                     <button onClick={(e) => {
                       e.preventDefault();
@@ -83,6 +84,9 @@ const LoginFormPage = () => {
                         </Link>
                     </p>
                 </form>
+                <div className="qrcode">
+                    <QRCode />
+                </div>
             </div>
         </div>
         </>

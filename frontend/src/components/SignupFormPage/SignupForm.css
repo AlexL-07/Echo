@@ -1,0 +1,12 @@
+.register-form-container {
+    background-color: #36393f;
+    color: white;
+    font-family: "gg-sans-med";
+    padding: 20px;
+    width: 480px;
+    height: 570px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: rgb(41, 41, 41) 0px 8px 24px;
+}

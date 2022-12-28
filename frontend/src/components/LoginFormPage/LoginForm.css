@@ -1,0 +1,44 @@
+.form-parent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("../../assets/discordBG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* .home-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-family: gg-sans-bold;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #36393f;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center; 
+}
+
+.home-button:hover {
+    background-color: black;
+} */
+
+.form-container {
+    background-color: #36393f;
+    color: white;
+    font-family: "gg-sans-med";
+    padding: 20px;
+    width: 750px;
+    height: 365px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: rgb(41, 41, 41) 0px 8px 24px;
+}

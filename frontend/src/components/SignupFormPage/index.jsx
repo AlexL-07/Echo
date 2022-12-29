@@ -33,7 +33,7 @@ const SignupFormPage = () => {
                     else setErrors([res.statusText]);
                 }) 
         }
-        return setErrors(['Confirm Password field must be the same as the Password field']);
+        return setErrors(['Confirm Password must be the same as the Password']);
     }
     
     return (
@@ -43,9 +43,6 @@ const SignupFormPage = () => {
                     <div className="reg-above-inputs-container">
                         <p>Create an Account</p>
                     </div>
-                    {/* <ul>
-                    {errors.map(error => <li key={error}>{error}</li>)}
-                    </ul> */}
                     <label id="top-label" className="reg-secondary-text">
                         EMAIL
                     </label>
@@ -76,8 +73,11 @@ const SignupFormPage = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <label className="reg-secondary-text">
-                        CONFIRM PASSWORD
+                    <label className="reg-secondary-text" id={errors.length && 'error-label'}>
+                        CONFIRM PASSWORD{" "}
+                        <span id={errors.length && "error-label"}>
+                            {errors.length ? ` - ${errors[0]}` : ""}
+                        </span>
                     </label>
                     <input
                         type="password"

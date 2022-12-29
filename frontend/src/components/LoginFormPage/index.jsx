@@ -38,7 +38,6 @@ const LoginFormPage = () => {
     return (
         <>
         <div className="form-parent">
-            {/* <button className="home-button">Echo</button> */}
             <div className="form-container">
                 <form onSubmit={handleSubmit} className="login-form">
                     <div className="above-inputs-container">
@@ -49,11 +48,11 @@ const LoginFormPage = () => {
                           <p className="above-inputs secondary-text">We're so excited to see you again!</p>
                         </center>
                     </div>
-                    {/* <ul>
-                        {errors.map(error => <li key={error}>{error}</li>)}
-                    </ul> */}
-                    <label htmlFor="credential" className="secondary-text">
-                        USERNAME OR EMAIL <span>*</span>
+                    <label htmlFor="credential" className="secondary-text" id={errors.length && 'error-label'}>
+                        USERNAME OR EMAIL{" "} 
+                            <span id={errors.length && "error-label"}>
+                                {errors.length ? ` - ${errors[0]}` : "*"}
+                            </span>
                     </label>
                     <input
                             type="text"
@@ -62,8 +61,11 @@ const LoginFormPage = () => {
                             onChange={(e) => setCredential(e.target.value)}
                             required
                         />
-                    <label htmlFor="password" className="secondary-text">
-                        PASSWORD <span>*</span>
+                    <label htmlFor="password" className="secondary-text" id={errors.length && 'error-label'}>
+                        PASSWORD 
+                            <span id={errors.length && "error-label"}>
+                                {errors.length ? ` - ${errors[0]}` : "*"}
+                            </span>
                     </label>
                     <input
                             type="password"

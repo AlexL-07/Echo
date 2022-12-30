@@ -9,6 +9,40 @@ class User < ApplicationRecord
     validates :status, inclusion: {in: ["Online", "Idle", "Do Not Disturb", "Offline"]}
     before_validation :ensure_session_token, :ensure_user_tag 
 
+    has_many :owned_servers,
+        class_name: :Server,
+        foreign_key: :owner_id,
+        primary_key: :id,
+        dependent: :destroy
+
+    has_many :server_memberships,
+        class_name: :ServerMembership,
+        foreign_key: :user_id,
+        primary_key: :id,
+        dependent: :destroy
+
+    has_many :servers,
+        through: :server_memberships,
+        source: :server,
+        dependent: :destroy
+    
+    has_many :friendships, 
+        class_name: :Friendship,
+        foreign_key: :user_id,
+        primary_key: :id,
+        dependent: :destroy
+
+    has_many :friends,
+        class_name: :Friendship,
+        foreign_key: :friend_id,
+        primary_key: :id,
+        dependent: :destroy
+
+    has_many :messages,
+        class_name: :Message,
+        foreign_key: :author_id,
+        primary_key: :id
+
     def self.find_by_credentials(credential, password)
         if credential.include?("@")
             user = User.find_by(email: credential)

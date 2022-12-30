@@ -10,6 +10,7 @@ ApplicationRecord.transaction do
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
     User.destroy_all
+    Server.destroy_all
   
     puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
@@ -22,6 +23,23 @@ ApplicationRecord.transaction do
       email: 'demo@user.io', 
       password: 'password',
       status: 'Online'
+    )
+
+    puts "Creating servers..."
+
+    Server.create!(
+      owner_id: 1,
+      name: "test server 1",
+      is_public: true,
+      invite_key: "12345"
+    )
+
+    puts "Creating channels..."
+
+    Channel.create!(
+      server_id: 1,
+      name: "General",
+      is_public: true
     )
   
     # More users

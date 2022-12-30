@@ -5,17 +5,21 @@ class Api::MessagesController < ApplicationController
         @message.message_location_id = @channel.id
         @message.author_id = current_user.id
         if @message.save
-            render :index
+            render :show
         end 
     end
 
     def update
         @message = Message.find_by(id: params[:id])
         if @message.author_id == current_user.id && @message.update(message_params)
-            render :index
+            render :show
         else
             render json: { errors: @message.errors.full_messages}, status: 422
         end
+    end
+
+    def show
+        @message = Message.find(params[:id])
     end
 
     def index
@@ -29,7 +33,7 @@ class Api::MessagesController < ApplicationController
         @server = Server.find(id: params[:server_id])
         if @message.author_id == current_user.id || current_user.id == @server.owner_id
             @message.destroy
-            render :index
+            render :show
         else
             render json: { errors: @message.errors.full_messages}, status: 422
         end

@@ -15,7 +15,7 @@ class Api::ServersController < ApplicationController
     def create
         @server = Server.new(server_params)
         @server.owner_id = current_user.id
-        # @server.is_public = true
+        @server.invite_key = generate_unique_invite_key
         if @server.save
             @server_memberships = ServerMembership.create(user_id: current_user.id, server_id: @server.id)
             @channel = Channel.create(name: "General", is_public: true) 
@@ -45,6 +45,14 @@ class Api::ServersController < ApplicationController
 
     private
     def server_params
-        params.require(:server).permit(:name, :is_public, :invite_key)
+        params.require(:server).permit(:name, :is_public)
+    end
+
+    def generate_unique_invite_key
+        key = rand.to_s[2..6]
+        while Server.exists?(invite_key: key)
+            key = rand.to_s[2..6]
+        end
+        key
     end
 end

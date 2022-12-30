@@ -7,7 +7,7 @@ class User < ApplicationRecord
     validates :password, length: {in: 8..225}, allow_nil: true
     validates :username, uniqueness: {scope: :user_tag}
     validates :status, inclusion: {in: ["Online", "Idle", "Do Not Disturb", "Offline"]}
-    before_validation :ensure_session_token, :ensure_user_tag 
+    before_validation :ensure_session_token
 
     has_many :owned_servers,
         class_name: :Server,
@@ -60,21 +60,9 @@ class User < ApplicationRecord
         self.session_token
     end
 
-    def set_user_tag
-        self.user_tag = generate_unique_user_tag
-        self.save!
-        self.user_tag
-    end
-
-
-
     private
     def ensure_session_token
         self.session_token ||= generate_unique_session_token
-    end
-
-    def ensure_user_tag
-        self.user_tag ||= generate_unique_user_tag
     end
 
     def generate_unique_session_token
@@ -84,11 +72,5 @@ class User < ApplicationRecord
         end
     end
 
-    def generate_unique_user_tag
-        tag = rand.to_s[2..5]
-        while User.exists?(user_tag: tag) && User.exists?(username: username)
-            tag = rand.to_s[2..5]
-        end
-        tag
-    end
+    
 end

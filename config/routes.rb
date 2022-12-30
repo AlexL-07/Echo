@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :messages, only: [:update]
+    resources :messages, only: [:show, :update]
     resources :friendships, only: [:create, :destroy]
     resources :server_memberships, only: [:create, :destroy]
   end

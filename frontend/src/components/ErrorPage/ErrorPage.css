@@ -1,0 +1,62 @@
+.error-navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 500px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: none;
+}
+
+.error-logo {
+    width: 180px;
+    cursor: pointer;
+}
+
+.error-nav-bar-links {
+    list-style: none;
+}
+
+.error-nav-bar-links li a{
+    font-family: "gg-sans-bold";
+    text-decoration: none;
+    color: black !important;
+}
+
+.error-nav-bar-links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.error-nav-bar-links li a {
+    transition: all 0.3s ease 0s;
+}
+
+.error-nav-bar-links li a:hover {
+    text-decoration: underline;
+}
+
+.error-session-button {
+    font-family: "gg-sans";
+    color: white;
+    padding: 9px 25px;
+    background-color: #5865F2;
+    border: none; 
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.error-session-button:hover {
+    box-shadow: rgb(41, 41, 41) 0px 8px 24px;
+}
+
+.error-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorgif{
+    width: 500px;
+}

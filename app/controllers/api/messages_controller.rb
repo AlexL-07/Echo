@@ -1,4 +1,5 @@
 class Api::MessagesController < ApplicationController
+    wrap_parameters include: Message.attribute_names
     def create
         @message = Message.new(message_params)
         @channel = Channel.find(params[:channel_id])

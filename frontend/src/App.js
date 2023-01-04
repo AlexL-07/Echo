@@ -1,9 +1,10 @@
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import React from 'react';
-import {Route, Switch} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 import UserHomePage from "./components/UserHomePage";
 import SplashPage from "./components/SplashPage";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
         <Route path="/channel/@me">
           <UserHomePage />
         </Route>
+        <Route path="/error">
+          <ErrorPage />
+        </Route>
+        <Redirect to='/error' />
       </Switch>
     </>
     

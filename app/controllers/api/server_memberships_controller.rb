@@ -1,4 +1,5 @@
 class Api::ServerMembershipsController < ApplicationController
+    wrap_parameters include: ServerMembership.attribute_names
     def create
         @server_membership = ServerMembership.new(server_membership_params)
         @server = Server.find(params[:server_membership][:server_id])

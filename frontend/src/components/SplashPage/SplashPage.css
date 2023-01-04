@@ -1,0 +1,64 @@
+.splash-page-banner{
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/splashbackground.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 500px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: none;
+}
+
+.logo {
+    width: 180px;
+    cursor: pointer;
+}
+
+.nav-bar-links {
+    list-style: none;
+}
+
+.nav-bar-links li a{
+    font-family: "gg-sans-bold";
+    text-decoration: none;
+    color: white;
+}
+
+.nav-bar-links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav-bar-links li a {
+    transition: all 0.3s ease 0s;
+}
+
+.nav-bar-links li a:hover {
+    text-decoration: underline;
+}
+
+.session-button {
+    font-family: "gg-sans";
+    padding: 9px 25px;
+    background-color: white;
+    border: none; 
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.session-button:hover {
+    box-shadow: rgb(41, 41, 41) 0px 8px 24px;
+}
+
+
+
+
+

@@ -44,7 +44,10 @@ const SignupFormPage = () => {
                         <p>Create an Account</p>
                     </div>
                     <label id="top-label" className="reg-secondary-text">
-                        EMAIL
+                        EMAIL{" "}
+                        <span id={errors.length && "error-label"}>
+                            {errors.length ? ` - ${errors[0]}` : ""}
+                        </span>
                     </label>
                     <input
                         type="text"
@@ -54,7 +57,10 @@ const SignupFormPage = () => {
                         required
                     />
                     <label className="reg-secondary-text">
-                        USERNAME
+                        USERNAME{" "}
+                        <span id={errors.length && "error-label"}>
+                            {errors.length ? ` - ${errors[0]}` : ""}
+                        </span>
                     </label>
                     <input
                         type="text"
@@ -64,7 +70,10 @@ const SignupFormPage = () => {
                         required
                     />
                     <label className="reg-secondary-text">
-                        PASSWORD
+                        PASSWORD{" "}
+                        <span id={errors.length && "error-label"}>
+                            {errors.length ? ` - ${errors[0]}` : ""}
+                        </span>
                     </label>
                     <input
                         type="password"
@@ -73,7 +82,7 @@ const SignupFormPage = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <label className="reg-secondary-text" id={errors.length && 'error-label'}>
+                    <label className="reg-secondary-text">
                         CONFIRM PASSWORD{" "}
                         <span id={errors.length && "error-label"}>
                             {errors.length ? ` - ${errors[0]}` : ""}

@@ -1,4 +1,5 @@
 class Api::ChannelsController < ApplicationController
+    wrap_parameters include: Channel.attribute_names
     def create
         @server = Server.find_by(id: params[:server_id])
         @channel = Channel.new(channel_params)

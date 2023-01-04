@@ -35,6 +35,12 @@ const SignupFormPage = () => {
         }
         return setErrors(['Confirm Password must be the same as the Password']);
     }
+
+    const findError = (error) => {
+        const regex = new RegExp(error);
+        let found = errors.find((e) => e.match(regex));
+        return found ? "- " + found : "";
+      };
     
     return (
         <div className="form-parent">
@@ -43,10 +49,10 @@ const SignupFormPage = () => {
                     <div className="reg-above-inputs-container">
                         <p>Create an Account</p>
                     </div>
-                    <label id="top-label" className="reg-secondary-text">
+                    <label id={findError("Email") !== "" ? "error-label" : undefined} className="reg-secondary-text top-label">
                         EMAIL{" "}
-                        <span id={errors.length && "error-label"}>
-                            {errors.length ? ` - ${errors[0]}` : ""}
+                        <span id={findError !== "" ? "error-label" : undefined}>
+                            {errors.length ? findError("Email") : ""}
                         </span>
                     </label>
                     <input
@@ -56,10 +62,10 @@ const SignupFormPage = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                    <label className="reg-secondary-text">
+                    <label className="reg-secondary-text" id={findError("Username") !== "" ? "error-label" : undefined}>
                         USERNAME{" "}
                         <span id={errors.length && "error-label"}>
-                            {errors.length ? ` - ${errors[0]}` : ""}
+                            {errors.length ? findError("Username") : ""}
                         </span>
                     </label>
                     <input
@@ -69,10 +75,10 @@ const SignupFormPage = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-                    <label className="reg-secondary-text">
+                    <label className="reg-secondary-text" id={findError("Password") !== "" ? "error-label" : undefined}>
                         PASSWORD{" "}
                         <span id={errors.length && "error-label"}>
-                            {errors.length ? ` - ${errors[0]}` : ""}
+                            {errors.length ? findError("Password") : ""}
                         </span>
                     </label>
                     <input
@@ -82,10 +88,10 @@ const SignupFormPage = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <label className="reg-secondary-text">
+                    <label className="reg-secondary-text" id={findError("Confirm") !== "" ? "error-label" : undefined}>
                         CONFIRM PASSWORD{" "}
                         <span id={errors.length && "error-label"}>
-                            {errors.length ? ` - ${errors[0]}` : ""}
+                            {errors.length ? findError("Confirm") : ""}
                         </span>
                     </label>
                     <input

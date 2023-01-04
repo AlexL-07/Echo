@@ -5,12 +5,12 @@ class Api::UsersController < ApplicationController
       @user = User.new(user_params)
       @user.status = "Online"
       @user.user_tag = generate_unique_user_tag
-      if @user.save!
+      if @user.save
         login!(@user)
         render :show 
         return
       else
-        render json: { errors: ['The provided credentials were invalid.'] }, status: :unprocessable_entity 
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity 
       end 
     end
 

@@ -1,0 +1,181 @@
+:root {
+    --color-blurple: #5865F2;
+    --color-not-quite-black: #23272a;
+    --color-dark: #2c2f33;
+    --color-lighter-dark: #45494e;
+    --color-full-white: #fff;
+    --color-actually-black: #000;
+    --color-fantastic-green: #00ae7a;
+}
+
+.nav-bar {
+  z-index: 101;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+body {
+  background: var(--color-dark);
+  color: var(--color-full-white);
+  font-family: "gg-sans-bold", sans-serif;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow: visible;
+}
+
+nav::-webkit-scrollbar {
+  display: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  user-select: none;
+}
+
+nav p {
+  user-select: none;
+}
+
+.server-circles {
+  margin-top: 0;
+  background: var(--color-not-quite-black);
+  min-height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+.server-circle {
+  background-color: var(--color-lighter-dark);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  transition: border-radius 128ms, background 128ms, color 128ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.server-circle:hover {
+  border-radius: 36%;
+}
+
+.server-circle:hover::before {
+  transform: translate(-100%, -50%) scale(0.5);
+}
+
+.server-circle:hover .pop-out {
+  opacity: 1;
+  z-index: 101;
+  transform: translateY(-50%) scale(1);
+}
+
+.server-circle::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: var(--color-full-white);
+  position: absolute;
+  border-radius: 5px;
+  top: 50%;
+  transform: translate(-100%, -50%) scale(0);
+  transition: transform 180ms;
+}
+
+.active.server-circle::before {
+  transform: translate(-112%, -50%) scale(0.75);
+  transition: transform 180ms;
+}
+
+.purple:hover {
+  background-color: var(--color-blurple);
+}
+
+.active {
+  background-color: var(--color-blurple);
+  border-radius: 36%;
+}
+
+.green {
+  color: var(--color-fantastic-green);
+}
+
+.green.active {
+  background: var(--color-fantastic-green);
+  color: var(--color-full-white);
+}
+
+.green:hover {
+  background: var(--color-fantastic-green);
+  color: var(--color-full-white);
+}
+
+.divider {
+  width: 100%;
+  background: var(--color-full-white);
+  height: 2px;
+  border-radius: 1px;
+  opacity: 0.15;
+  transform: scale(0.75);
+}
+
+.pop-out {
+  background: var(--color-actually-black);
+  padding: 0.68rem 1rem;
+  position: absolute;
+  top: 50%;
+  left: 155%;
+  transform-origin: left;
+  transform: translateY(-50%) scale(0.98);
+  width: max-content;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 64ms, transform 128ms cubic-bezier(0.43, 0.09, 0.38, 2.56);
+  pointer-events: none;
+  color: var(--color-full-white);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  z-index: 101;
+}
+
+.pop-out::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  background-color: var(--color-actually-black);
+  width: 24px;
+  height: 24px;
+  z-index: -1;
+}
+
+.pop-text {
+  margin: 0;
+}
+
+.plus-browse-minus {
+  font-family: "gg-sans-med", sans-serif;
+  font-size: 36px;
+}
+
+.logo-icon {
+    width: 35px;
+    padding-top: 5px;
+}
+
+.browse {
+    font-size: 30px;
+}

@@ -1,6 +1,5 @@
-json.server do
-    json.partial! "api/servers/server", server: @server
-end
+json.partial! "api/servers/server", server: @server
+
 
 # json.online_users do
 #     @online_users.each do |user|

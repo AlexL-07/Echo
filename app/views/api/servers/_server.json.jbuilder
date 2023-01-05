@@ -19,3 +19,8 @@ end
 json.currentUser do 
     json.partial! "api/users/user", user: current_user
 end
+
+json.default_channel do
+    channel = server.channels.find_by(channel_name: "general")
+    json.partial! "api/channels/channel", channel: channel
+end

@@ -3,7 +3,7 @@ class Api::ServersController < ApplicationController
 
     def index
         @user = current_user
-        @servers = current_user.servers
+        @servers = @user.servers
         render :index
     end
 
@@ -18,7 +18,7 @@ class Api::ServersController < ApplicationController
         @server.invite_key = generate_unique_invite_key
         if @server.save
             @server_memberships = ServerMembership.create(user_id: current_user.id, server_id: @server.id)
-            @channel = Channel.create(name: "General", is_public: true) 
+            @channel = Channel.create(name: "general", is_public: true) 
             render :show
         else
             render json: {errors: @server.errors.full_messages }, status: 422

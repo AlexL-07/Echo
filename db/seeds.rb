@@ -22,7 +22,8 @@ ApplicationRecord.transaction do
       username: 'Demo-lition', 
       email: 'demo@user.io', 
       password: 'password',
-      status: 'Online'
+      status: 'Online',
+      user_tag: "1111"
     )
 
     puts "Creating servers..."
@@ -38,8 +39,14 @@ ApplicationRecord.transaction do
 
     Channel.create!(
       server_id: 1,
-      name: "General",
+      name: "general",
       is_public: true
+    )
+
+    puts "Creating server membership..."
+    ServerMembership.create!(
+      user_id: 1,
+      server_id: 1
     )
   
     # More users

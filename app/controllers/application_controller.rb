@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
         with: :invalid_authenticity_token
 
     before_action :snake_case_params, :attach_authenticity_token
+    helper_method :current_user
 
 
     #CRRLLL 
@@ -23,6 +24,7 @@ class ApplicationController < ActionController::API
 
     def login!(user) 
         session[:session_token] = user.reset_session_token!
+        user.status = "Online"
     end
 
     def logout!

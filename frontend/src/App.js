@@ -5,10 +5,13 @@ import {Redirect, Route, Switch} from 'react-router-dom'
 import UserHomePage from "./components/UserHomePage";
 import SplashPage from "./components/SplashPage";
 import ErrorPage from "./components/ErrorPage";
+import ServerNav from "./components/ServerNav";
+import ServerShowPage from "./components/ServerShowPage";
 
 function App() {
   return (
     <>
+      <ServerNav />
       <Switch>
         <Route exact path="/">
           <SplashPage />
@@ -21,6 +24,9 @@ function App() {
         </Route>
         <Route path="/channel/@me">
           <UserHomePage />
+        </Route>
+        <Route exact path="/servers/:serverId/channels/:channelId">
+          <ServerShowPage />
         </Route>
         <Route path="/error">
           <ErrorPage />

@@ -26,13 +26,13 @@ class User < ApplicationRecord
         source: :server,
         dependent: :destroy
     
-    has_many :friendships, 
+    has_many :friends, 
         class_name: :Friendship,
         foreign_key: :user_id,
         primary_key: :id,
         dependent: :destroy
 
-    has_many :friends,
+    has_many :friendships,
         class_name: :Friendship,
         foreign_key: :friend_id,
         primary_key: :id,

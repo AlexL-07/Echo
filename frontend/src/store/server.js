@@ -11,7 +11,7 @@ export const addServer = (server) => ({
 
 export const addServers = (servers) => ({
     type: ADD_SERVERS,
-    servers: servers
+    servers
 })
 
 export const removeServer = (serverId) => ({

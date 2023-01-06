@@ -1,5 +1,10 @@
 json.partial! "api/servers/server", server: @server
 
+json.owner do
+    json.set! @server.owner_id do
+        json.partial! 'api/users/user', user: @server.owner
+    end
+end
 
 # json.online_users do
 #     @online_users.each do |user|

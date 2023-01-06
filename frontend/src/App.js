@@ -25,7 +25,7 @@ function App() {
         <Route path="/channel/@me">
           <UserHomePage />
         </Route>
-        <Route exact path="/servers/:serverId/channels/:channelId">
+        <Route exact path="/servers/:serverId">
           <ServerShowPage />
         </Route>
         <Route path="/error">

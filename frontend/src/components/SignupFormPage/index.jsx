@@ -59,6 +59,7 @@ const SignupFormPage = () => {
                         type="text"
                         name="email"
                         value={email}
+                        autoFocus
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />

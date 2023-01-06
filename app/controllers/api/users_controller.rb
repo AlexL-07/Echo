@@ -14,10 +14,35 @@ class Api::UsersController < ApplicationController
       end 
     end
 
+    def show
+      @user = User.find_by(id: params[:id])
+      render :show
+    end
+
+    def update 
+      @user = User.find_by(id: params[:id])
+      if current_user.id == @user.id && @user.update(user_params)
+        render :show
+      else 
+        render json: {errors: @user.errors.full_messages}, status: 422
+      end
+    end
+
+    def destroy
+      @user = User.find_by(id: params[:id])
+      if current_user.id == @user.id
+        @user.destroy
+      else
+        render json: {errors: ["Must be logged in as this user."]}, status: 422
+      end
+    end
+
+
+
     
     private 
     def user_params 
-      params.require(:user).permit(:email, :username, :password, :user_tag)
+      params.require(:user).permit(:email, :username, :password, :user_tag, :status)
     end 
     
     def generate_unique_user_tag

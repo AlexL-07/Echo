@@ -41,7 +41,7 @@ const ServerNav = () => {
                                         <li>
                                             <p>{server.name[0]}</p>
                                             <div className="pop-out">
-                                                <h4 className="pop-text">{server.serverName}</h4>
+                                                <h4 className="pop-text">{server.name}</h4>
                                             </div>
                                         </li>
                                     </NavLink>

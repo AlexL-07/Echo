@@ -58,6 +58,7 @@ const LoginFormPage = () => {
                             type="text"
                             name="credential"
                             value={credential}
+                            autoFocus
                             onChange={(e) => setCredential(e.target.value)}
                             required
                         />

@@ -7,10 +7,12 @@ import SplashPage from "./components/SplashPage";
 import ErrorPage from "./components/ErrorPage";
 import ServerNav from "./components/ServerNav";
 import ServerShowPage from "./components/ServerShowPage";
+import UserControls from "./components/UserControls";
 
 function App() {
   return (
     <>
+      <UserControls />
       <ServerNav />
       <Switch>
         <Route exact path="/">
@@ -24,6 +26,9 @@ function App() {
         </Route>
         <Route path="/channel/@me">
           <UserHomePage />
+        </Route>
+        <Route exact path="/servers/:serverId/channels/:channelId">
+          <ServerShowPage />
         </Route>
         <Route exact path="/servers/:serverId">
           <ServerShowPage />

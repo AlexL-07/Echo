@@ -18,19 +18,19 @@ ul {
 }
 
 body {
-  background: #2c2f33;
+  background: #36393F;
   color: #fff;
   font-family: "gg-sans-bold", sans-serif;
 }
 
-nav {
+.server-nav-bar {
   position: fixed;
   top: 0;
   bottom: 0;
   overflow: visible;
 }
 
-nav::-webkit-scrollbar {
+.server-nav-bar::-webkit-scrollbar {
   display: none;
 }
 
@@ -40,7 +40,7 @@ nav a {
   user-select: none;
 }
 
-nav p {
+.server-nav-bar p {
   user-select: none;
 }
 
@@ -172,7 +172,7 @@ nav p {
 }
 
 .logo-icon {
-    width: 35px;
+    width: 27px;
     padding-top: 5px;
 }
 

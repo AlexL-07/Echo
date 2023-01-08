@@ -1,0 +1,27 @@
+.server-banner-container{
+    display: flex;
+    border-bottom: 1px solid black;
+
+}
+
+.server-name {
+    background-color: #2F3136;
+    width: 240px;
+}
+
+.channel-bar {
+    display: flex;
+    width: 80%;
+    padding-left: 10px;
+    height: 50px;
+    justify-content: space-between;
+}
+
+.channel-bar-buttons{
+    display: flex;
+}
+
+.channel-bar-buttons p{
+    padding-left: 5px;
+    padding-right: 5px
+}

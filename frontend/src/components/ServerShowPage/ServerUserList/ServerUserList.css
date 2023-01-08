@@ -1,0 +1,17 @@
+.server-members{
+    background-color: #2F3136;
+    width: 240px;
+    height: 100vh;
+}
+.user-item{
+    display: flex;
+}
+
+.user-logo-icon {
+    width: 30px;
+    padding-top: 5px;
+}
+
+.top-user-text{
+    margin-top: 0px;
+}

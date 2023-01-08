@@ -1,0 +1,80 @@
+.user-controls-container{
+    display: flex;
+    width: 240px;
+    height: 60px;
+    background-color: #2A2C30;
+    position: fixed;
+    left: 80px;
+    bottom: 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-button{
+    display: flex;
+    width: calc(-52% + 240px);
+    margin-left: 5px;
+    padding: 5px 10px 5px 5px;
+    font-size: 14px;
+    border-radius: 4px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.user-button:hover {
+    background-color: #3F4248;
+}
+
+.user-circle{
+    padding-right: 10px;
+}
+
+.user-information{
+    display: flex;
+    flex-direction: column;
+}
+
+.user-information p {
+    padding: 0px;
+    margin: 0px;
+}
+
+.audio-and-settings{
+    display: flex;
+}
+
+.user-logo-icon {
+    width: 25px;
+    padding-top: 5px;
+}
+
+.audio-and-settings {
+    margin-right: 5px;
+}
+
+.audio-and-settings p {
+    margin-left: 5px;
+}
+
+.audio-and-settings button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.audio-and-settings button:hover {
+    background-color: #3F4248;
+    /* color: #DCDDDE; */
+    border-radius: 4px;
+  }
+  
+.audio-and-settings button:active {
+    background-color: #3F4248;
+    color: #fff
+}
+
+.current-user-tag {
+    font-family: "gg-sans";
+}

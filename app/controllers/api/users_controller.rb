@@ -21,7 +21,7 @@ class Api::UsersController < ApplicationController
 
     def update 
       @user = User.find_by(id: params[:id])
-      if current_user.id == @user.id && @user.update(user_params)
+      if current_user.id == @user.id && @user.update(status_params)
         render :show
       else 
         render json: {errors: @user.errors.full_messages}, status: 422
@@ -37,13 +37,14 @@ class Api::UsersController < ApplicationController
       end
     end
 
-
-
-    
     private 
     def user_params 
       params.require(:user).permit(:email, :username, :password, :user_tag, :status)
     end 
+
+    def status_params
+      params.require(:user).permit(:status)
+    end
     
     def generate_unique_user_tag
       tag = rand.to_s[2..5]

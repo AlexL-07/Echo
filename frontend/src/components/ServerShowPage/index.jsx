@@ -2,12 +2,18 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect, useParams } from "react-router-dom"
 import { fetchServer } from "../../store/server"
+// import { fetchChannels } from "../../store/channel"
 import "./ServerShowPage.css"
+import ChannelNav from "./ChannelNav"
+import ServerUserList from "./ServerUserList"
+import ServerBanner from "./ServerBanner"
 
 const ServerShowPage = () => {
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user)
-    const {serverId} = useParams();
+    const {serverId, channelId} = useParams();
+    const sessionUser = useSelector((store) => store.session.user)
+    const server = useSelector((store)=> store.servers[serverId])
+    const channel = useSelector((store)=>store.channels[channelId])
     useEffect(()=>{
         dispatch(fetchServer(serverId))
         // dispatch(fetchChannels(serverId))
@@ -15,12 +21,31 @@ const ServerShowPage = () => {
     }, [dispatch, serverId])
 
     if (!sessionUser) return <Redirect to='/'/>
+    if(!channelId){
+        return (
+            <Redirect to={`/servers/${server.id}/channels/${server.defaultChannel.id}`} />
+        )
+    } else {
+        return(
+            <div className="server-show">
+                <div className="server-header">
+                    <ServerBanner />
+                </div>
+                <div className="server-show-components">
+                    <div className="channel-navigate">
+                        <ChannelNav />
+                    </div>
+                    <div className="channel-show">
+                        <h1>Channel Show/Message form</h1>
+                    </div>
+                    <div className="server-membersship">
+                        <ServerUserList />
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
-    return(
-        <div className="server-show">
-            <h1>Welcome to the Server Show Page</h1>
-        </div>
-    )
     
 }
 

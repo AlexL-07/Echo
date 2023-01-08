@@ -1,3 +1,16 @@
 .server-show {
     padding-left: 80px;
+    display: flex;
+    flex-direction: column;
 }
+
+
+.server-show-components{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .channel-navigate{
+    height: 800px;
+} */
+

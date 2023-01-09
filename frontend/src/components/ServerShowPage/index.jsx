@@ -4,9 +4,11 @@ import { Redirect, useParams } from "react-router-dom"
 import { fetchServer } from "../../store/server"
 // import { fetchChannels } from "../../store/channel"
 import "./ServerShowPage.css"
-import ChannelNav from "./ChannelNav"
-import ServerUserList from "./ServerUserList"
-import ServerBanner from "./ServerBanner"
+import ChannelNav from "./ChannelNav";
+import ServerUserList from "./ServerUserList";
+import ServerBanner from "./ServerBanner";
+import ChannelShowPage from "./ChannelShowPage"
+import { fetchChannels } from "../../store/channel"
 
 const ServerShowPage = () => {
     const dispatch = useDispatch();
@@ -14,6 +16,7 @@ const ServerShowPage = () => {
     const sessionUser = useSelector((store) => store.session.user)
     const server = useSelector((store)=> store.servers[serverId])
     const channel = useSelector((store)=>store.channels[channelId])
+    const channels = useSelector((store)=> store.channels)
     useEffect(()=>{
         dispatch(fetchServer(serverId))
         // dispatch(fetchChannels(serverId))
@@ -36,7 +39,7 @@ const ServerShowPage = () => {
                         <ChannelNav />
                     </div>
                     <div className="channel-show">
-                        <h1>Channel Show/Message form</h1>
+                        <ChannelShowPage />
                     </div>
                     <div className="server-membersship">
                         <ServerUserList />

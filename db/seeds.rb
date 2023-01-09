@@ -19,12 +19,30 @@ ApplicationRecord.transaction do
     puts "Creating users..."
     # Create one user with an easy to remember username, email, and password:
     User.create!(
-      username: 'Demo-lition', 
+      username: 'Demo', 
       email: 'demo@user.io', 
       password: 'password',
       status: 'Online',
       user_tag: "1111"
     )
+
+    User.create!(
+      username: 'Demo2.0', 
+      email: 'demo2@user.io', 
+      password: 'password',
+      status: 'Online',
+      user_tag: "2222"
+    )
+
+    User.create!(
+      username: 'Demo3.0', 
+      email: 'demo3@user.io', 
+      password: 'password',
+      status: 'Online',
+      user_tag: "3333"
+    )
+
+
 
     puts "Creating servers..."
 
@@ -35,6 +53,13 @@ ApplicationRecord.transaction do
       invite_key: "12345"
     )
 
+    Server.create!(
+      owner_id: 2,
+      name: "test server 2",
+      is_public: true,
+      invite_key: "56789"
+    )
+
     puts "Creating channels..."
 
     Channel.create!(
@@ -43,10 +68,43 @@ ApplicationRecord.transaction do
       is_public: true
     )
 
+    Channel.create!(
+      server_id: 1,
+      name: "test-channel-1",
+      is_public: true
+    )
+
+    Channel.create!(
+      server_id: 2,
+      name: "general",
+      is_public: true
+    )
+
+    Channel.create!(
+      server_id: 2,
+      name: "test-channel-2",
+      is_public: true
+    )
+
     puts "Creating server membership..."
     ServerMembership.create!(
       user_id: 1,
       server_id: 1
+    )
+
+    ServerMembership.create!(
+      user_id: 1,
+      server_id: 2
+    )
+
+    ServerMembership.create!(
+      user_id: 2,
+      server_id: 1
+    )
+
+    ServerMembership.create!(
+      user_id: 2,
+      server_id: 2
     )
   
     # More users

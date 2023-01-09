@@ -5,6 +5,17 @@
 }
 .user-item{
     display: flex;
+    width: calc(-10% + 240px);
+    margin-left: 5px;
+    padding: 5px 10px 5px 5px;
+    font-size: 14px;
+    border-radius: 4px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.user-item:hover{
+    background-color: #3F4248
 }
 
 .user-logo-icon {

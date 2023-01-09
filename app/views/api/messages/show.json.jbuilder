@@ -1,7 +1,7 @@
 json.message do
-    json.partial! 'api/messages/message', message: message
+    json.partial! 'api/messages/message', message: @message
 end
 
-json.user do 
-  json.partial! 'api/users/user', user: message.author
+json.author do 
+  json.partial! 'api/users/user', user: @message.author
 end

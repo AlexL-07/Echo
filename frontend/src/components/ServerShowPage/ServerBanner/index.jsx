@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import EditIcon from '@mui/icons-material/Edit';
+import PushPinIcon from '@mui/icons-material/PushPin';
 import "./ServerBanner.css"
 
 const ServerBanner = () => {
@@ -22,7 +23,7 @@ const ServerBanner = () => {
                     </div>
                     <div className="channel-bar-buttons">
                         <p><NotificationsIcon /></p>
-                        <p>📌</p>
+                        <p><PushPinIcon /></p>
                         <p><EditIcon /></p>
                         <p>Search Bar</p>
                     </div>

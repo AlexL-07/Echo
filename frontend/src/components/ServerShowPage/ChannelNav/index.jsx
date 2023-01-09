@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink, useParams } from "react-router-dom";
 import { fetchChannels } from "../../../store/channel";
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import "./ChannelNav.css"
 
 const ChannelNav = () => {
@@ -31,7 +32,7 @@ const ChannelNav = () => {
                 </ul>
                 <p>VOICE CHANNELS</p>
                 <ul className="channel-links-container voice">
-                    <li className="channel-name"><p>🔊 wishful thinking</p></li>
+                    <li className="channel-name"><p><VolumeUpIcon /> wishful thinking</p></li>
                 </ul>
             </nav>
         </div>

@@ -1,0 +1,45 @@
+.channel-message {
+    display: flex;
+    width: 1300px;
+    align-items: center;
+    margin: 7px 0;
+    padding: 10px 5px 10px 10px;
+    border-radius: 3px;
+}
+
+.channel-message:hover {
+    background-color: #323538;
+}
+
+.message-info{
+    display: flex;
+}
+.message-date{
+    padding-left: 5px;
+    font-family: "gg-sans";
+}
+
+.message-content{
+    font-family: "gg-sans";
+}
+
+.messages-body {
+    height: calc(100vh - 140px);
+    display: block;
+}
+
+.channel-show-header p{
+    font-family: "gg-sans";
+}
+
+.channel-show-header{
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+.channel-show-header h1{
+    margin-top: 5px;
+}
+
+
+

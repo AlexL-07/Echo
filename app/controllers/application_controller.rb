@@ -22,6 +22,10 @@ class ApplicationController < ActionController::API
         end
     end 
 
+    def from_template(template, locals={})
+        JSON.parse(self.class.render(:json, template: template, locals: locals))
+    end
+
     def login!(user) 
         user.status = "Online"
         session[:session_token] = user.reset_session_token!

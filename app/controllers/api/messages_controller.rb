@@ -6,14 +6,22 @@ class Api::MessagesController < ApplicationController
         @message.message_location_id = @channel.id
         @message.author_id = current_user.id
         if @message.save
-            render :show
+            ChannelsChannel.broadcast_to @message.channel,
+                type: 'RECEIVE_MESSAGE',
+                **from_template('api/messages/show', message: @message)
+            render json: nil, status: :ok
+        else
+            render json: { errors: @message.errors.full_messages }, status: 422
         end 
     end
 
     def update
         @message = Message.find_by(id: params[:id])
         if @message.author_id == current_user.id && @message.update(message_params)
-            render :show
+            ChannelsChannel.broadcast_to @message.channel,
+                type: 'UPDATE_MESSAGE',
+                **from_template('api/messages/show', message: @message)
+            render json: nil, status: :ok
         else
             render json: { errors: @message.errors.full_messages}, status: 422
         end
@@ -21,6 +29,7 @@ class Api::MessagesController < ApplicationController
 
     def show
         @message = Message.find(params[:id])
+        render :show
     end
 
     def index
@@ -33,10 +42,16 @@ class Api::MessagesController < ApplicationController
         @message = Message.find_by(id: params[:id])
         @server = Server.find(id: params[:server_id])
         if @message.author_id == current_user.id || current_user.id == @server.owner_id
-            @message.destroy
-            render :show
+            if @message.destroy
+                ChannelsChannel.broadcast_to @message.channel,
+                    type: 'DESTROY_MESSAGE',
+                    id: @message.id
+                render json: nil, status: :ok
+            else 
+                render json: { errors: @message.errors.full_messages }, status: 422
+            end
         else
-            render json: { errors: @message.errors.full_messages}, status: 422
+            render json: { errors: ["Only the sender and the owner can delete this message."] }, status: 422
         end
     end
 

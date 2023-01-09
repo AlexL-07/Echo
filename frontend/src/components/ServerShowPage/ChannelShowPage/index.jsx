@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { fetchMessages } from "../../../store/message";
+import { addMessage, fetchMessages, removeMessage } from "../../../store/message";
 import MessageForm from "./MessageForm"
 import "./ChannelShowPage.css"
 import logo from "../../../assets/logo_white.png"
 import hashtag from "../../../assets/channel-hashtag.png"
+import consumer from "../../consumer";
+import { fetchChannel } from "../../../store/channel";
 const ChannelShowPage = () => {
     const {serverId, channelId} = useParams();
     const channel = useSelector((store) => store.channels[channelId])
@@ -13,8 +15,29 @@ const ChannelShowPage = () => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(fetchMessages(serverId, channelId))
-    }, [channelId, serverId, dispatch, messages])
+        dispatch(fetchMessages(serverId, channelId));
+        const subscription = consumer.subscriptions.create(
+            {channel: 'ChannelsChannel', id: channelId},
+            {
+                received: (message) => {
+                    switch(message.type) {
+                        case 'RECEIVE_MESSAGE':
+                            dispatch(addMessage(message))
+                            break
+                        case 'UPDATE_MESSAGE':
+                            dispatch(addMessage(message))
+                            break;
+                        case 'DESTROY_MESSAGE':
+                            dispatch(removeMessage(message.id))
+                        default:
+                            console.log('Unhandled broadcast ', message.type)
+                            break;
+                    }
+                }
+            }
+        )
+        return () => subscription?.unsubscribe();
+    }, [channelId, dispatch])
 
     const formatMessageDate = (timestamp) => {
         let dateObj = new Date(timestamp);

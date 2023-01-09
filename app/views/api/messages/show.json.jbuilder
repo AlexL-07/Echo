@@ -1,7 +1,5 @@
-json.message do
-    json.partial! 'api/messages/message', message: @message
-end
+json.extract! message, :id, :message_location_id, :author_id, :content, :created_at, :updated_at
 
 json.author do 
-  json.partial! 'api/users/user', user: @message.author
+  json.partial! 'api/users/user', user: message.author
 end

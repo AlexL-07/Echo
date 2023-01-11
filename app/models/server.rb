@@ -1,6 +1,6 @@
 class Server < ApplicationRecord
-    validates :owner_id, :name, :is_public, :invite_key, presence: true
     validates :is_public, inclusion: {in: [true, false]}
+    validates :owner_id, :name, :invite_key, presence: true
     validates :invite_key, length: { is: 5 }, uniqueness: true
     
     belongs_to :owner, 

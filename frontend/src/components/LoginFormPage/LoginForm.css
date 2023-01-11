@@ -127,7 +127,7 @@
   text-decoration: underline;
 }
 
-span {
+.secondary-text span {
   font-style: italic;
   color: #ED4245;
 }

@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider, useDispatch } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import configureStore from './store';
-import csrfFetch, { restoreCSRF } from './store/csrf';
+import csrfFetch from './store/csrf';
 import * as sessionActions from './store/session';
-
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 const store = configureStore();
 // const dispatch = useDispatch()
 
@@ -19,23 +18,19 @@ if (process.env.NODE_ENV !== 'production') {
   window.sessionActions = sessionActions;
 }
 
-function Root() {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  );
-}
+
 
 
 const renderApplication = () => {
-  ReactDOM.render(
+  const root = ReactDOM.createRoot(document.getElementById("root"))
+  root.render(
     <React.StrictMode>
-      <Root />
+      <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+      </Provider>
     </React.StrictMode>,
-    document.getElementById('root')
   );
 }
 

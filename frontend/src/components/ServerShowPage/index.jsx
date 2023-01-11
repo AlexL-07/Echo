@@ -4,11 +4,13 @@ import { Redirect, useParams } from "react-router-dom"
 import { fetchServer } from "../../store/server"
 // import { fetchChannels } from "../../store/channel"
 import "./ServerShowPage.css"
-import ChannelNav from "./ChannelNav";
+import ChannelNav from "./ChannelNav"
 import ServerUserList from "./ServerUserList";
 import ServerBanner from "./ServerBanner";
 import ChannelShowPage from "./ChannelShowPage"
 import { fetchChannels } from "../../store/channel"
+import ServerFormPage from "../ServerNav/ServerFormPage"
+import ChannelFormPage from "./ChannelFormPage"
 
 const ServerShowPage = () => {
     const dispatch = useDispatch();
@@ -30,6 +32,9 @@ const ServerShowPage = () => {
         )
     } else {
         return(
+            <>
+            <ServerFormPage />
+            <ChannelFormPage />
             <div className="server-show">
                 <div className="server-header">
                     <ServerBanner />
@@ -46,6 +51,7 @@ const ServerShowPage = () => {
                     </div>
                 </div>
             </div>
+            </>
         )
     }
 

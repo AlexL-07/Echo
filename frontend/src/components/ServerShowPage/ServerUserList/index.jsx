@@ -10,6 +10,7 @@ const ServerUserList = () => {
     const server = useSelector((store)=> store.servers[serverId])
     const onlineUsers = [];
     const offlineUsers = [];
+    
     if(server){Object.values(server?.users).forEach((user) => {
         if(user.status === "Online" || user.status === "Idle" || user.status === "Do Not Disturb"){
             onlineUsers.push(user)

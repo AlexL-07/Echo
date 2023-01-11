@@ -49,7 +49,7 @@ const SignupFormPage = () => {
                     <div className="reg-above-inputs-container">
                         <p>Create an Account</p>
                     </div>
-                    <label id={findError("Email") !== "" ? "error-label" : undefined} className="reg-secondary-text top-label">
+                    <label id={findError("Email") !== "" ? "error-label" : undefined} className="reg-secondary-text top-label secondary-text">
                         EMAIL{" "}
                         <span id={findError !== "" ? "error-label" : undefined}>
                             {errors.length ? findError("Email") : ""}
@@ -63,7 +63,7 @@ const SignupFormPage = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                    <label className="reg-secondary-text" id={findError("Username") !== "" ? "error-label" : undefined}>
+                    <label className="reg-secondary-text secondary-text" id={findError("Username") !== "" ? "error-label" : undefined}>
                         USERNAME{" "}
                         <span id={errors.length && "error-label"}>
                             {errors.length ? findError("Username") : ""}
@@ -76,7 +76,7 @@ const SignupFormPage = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-                    <label className="reg-secondary-text" id={findError("Password") !== "" ? "error-label" : undefined}>
+                    <label className="reg-secondary-text secondary-text" id={findError("Password") !== "" ? "error-label" : undefined}>
                         PASSWORD{" "}
                         <span id={errors.length && "error-label"}>
                             {errors.length ? findError("Password") : ""}
@@ -89,7 +89,7 @@ const SignupFormPage = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <label className="reg-secondary-text" id={findError("Confirm") !== "" ? "error-label" : undefined}>
+                    <label className="reg-secondary-text secondary-text" id={findError("Confirm") !== "" ? "error-label" : undefined}>
                         CONFIRM PASSWORD{" "}
                         <span id={errors.length && "error-label"}>
                             {errors.length ? findError("Confirm") : ""}

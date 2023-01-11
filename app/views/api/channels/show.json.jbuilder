@@ -1,6 +1,4 @@
-json.channel do
-    json.partial! "api/channels/channel", channel: @channel
-end
+json.extract! @channel || channel, :id, :server_id, :name, :is_public, :created_at, :updated_at
 
 @channel.messages.each do |message|
     json.messages do

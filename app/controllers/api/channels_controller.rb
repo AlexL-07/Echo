@@ -1,9 +1,10 @@
 class Api::ChannelsController < ApplicationController
     wrap_parameters include: Channel.attribute_names
     def create
-        @server = Server.find_by(id: params[:server_id])
+        @server = Server.find(params[:server_id])
         @channel = Channel.new(channel_params)
         @channel.server_id = @server.id
+        @channel.is_public = true
         if @channel.save
             render :show
         else

@@ -3,6 +3,7 @@ import * as sessionActions from '../../store/session';
 import { Redirect, useLocation } from "react-router-dom";
 import React, {useContext, useEffect} from "react";
 import './UserHomePage.css'
+import ServerFormPage from "../ServerNav/ServerFormPage";
 const UserHomePage = () => {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
@@ -13,9 +14,12 @@ const UserHomePage = () => {
     
 
     return (
+        <>
+        <ServerFormPage />
         <div className="user-home">
             <h1>Welcome to the User's Home Page</h1>
         </div>
+        </>
     )
 }
 export default UserHomePage

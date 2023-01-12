@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: Echo_production
+  url: <%= ENV[’DATABASE_URL’] %>
   username: Echo
   password: <%= ENV["ECHO_DATABASE_PASSWORD"] %>

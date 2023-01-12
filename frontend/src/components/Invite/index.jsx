@@ -10,7 +10,6 @@ const Invite = () => {
     const history = useHistory();
 
     useEffect(() => {
-        console.log("I am triggered")
         dispatch(fetchServerWithInvite(inviteKey))
             .then((server) => {
                 history.push(`/servers/${server.id}`)

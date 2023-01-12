@@ -34,7 +34,6 @@ const UserShow = () => {
     }
 
     const statusDisplay = (userStatus) => {
-        console.log(userStatus)
         if(userStatus === "Online"){
             return (
                 <>

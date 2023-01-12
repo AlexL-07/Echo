@@ -10,7 +10,7 @@ const UserHomePage = () => {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const location = useLocation();
-    console.log(location)
+
     
     if (!sessionUser) return <Redirect to='/'/>
     

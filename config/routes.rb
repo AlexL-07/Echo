@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :friendships, only: [:create, :destroy, :update, :index]
     resources :server_memberships, only: [:create, :destroy]
 
-    get "*path", to: 'static_pages#frontend'
+    get '*path', to: 'static_pages#frontend'
 
     get "/find_server/:invite_key", to: "servers#find_server"
   end

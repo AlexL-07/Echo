@@ -4,13 +4,15 @@ import sessionReducer from './session';
 import serverReducer from './server';
 import channelReducer from './channel';
 import messageReducer from './message';
+import userReducer from './user';
 
 let enhancer;
 export const rootReducer = combineReducers({
     session: sessionReducer,
     servers: serverReducer,
     channels: channelReducer,
-    messages: messageReducer
+    messages: messageReducer,
+    users: userReducer,
 })
 
 if (process.env.NODE_ENV === 'production') {

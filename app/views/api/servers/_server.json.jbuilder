@@ -8,10 +8,14 @@ json.channels do
     end
 end
 
+
 json.users do 
     server.users.each do |user|
         json.set! user.id do
             json.partial! "api/users/user", user: user
+            if server
+                json.membership_id ServerMembership.find_by(user_id: user.id, server_id: server.id).id
+            end
         end
     end
 end

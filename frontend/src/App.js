@@ -8,6 +8,7 @@ import ErrorPage from "./components/ErrorPage";
 import ServerNav from "./components/ServerNav";
 import ServerShowPage from "./components/ServerShowPage";
 import UserControls from "./components/UserControls";
+import Invite from "./components/Invite";
 
 export const ModalContext = createContext();
 
@@ -15,6 +16,9 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
   const [isChannelOpen, setIsChannelOpen] = useState(false)
   const [isUserOpen, setIsUserOpen] = useState(false)
+  const [isStatusOpen, setIsStatusOpen] = useState(false)
+  const [isServerActionOpen, setIsServerActionOpen] = useState(false)
+  const [isServerInviteOpen, setIsServerInviteOpen] = useState(false)
   return (
     <>
     <div className="app-container">
@@ -25,7 +29,13 @@ function App() {
           isChannelOpen,
           setIsChannelOpen,
           isUserOpen, 
-          setIsUserOpen
+          setIsUserOpen,
+          isStatusOpen,
+          setIsStatusOpen,
+          isServerActionOpen,
+          setIsServerActionOpen,
+          isServerInviteOpen,
+          setIsServerInviteOpen
         }}>
         <UserControls />
         <ServerNav />
@@ -47,6 +57,9 @@ function App() {
           </Route>
           <Route exact path="/servers/:serverId">
             <ServerShowPage />
+          </Route>
+          <Route exact path="/invite/:inviteKey">
+            <Invite />
           </Route>
           <Route path="/error">
             <ErrorPage />

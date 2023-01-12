@@ -8,8 +8,8 @@ import "./UserShowModal.css"
 
 const customStyles = {
     content: {
-      top: "80%",
-      left: "10%",
+      top: "70%",
+      left: "13%",
       right: "auto",
       bottom: "auto",
       height: "370px",
@@ -21,6 +21,8 @@ const customStyles = {
       border: "none"
     },
 };
+
+Modal.setAppElement("#root");
 const UserShowModal = () => {
     const {isUserOpen, setIsUserOpen} = useContext(ModalContext)
     const sessionUser = useSelector((store) => store.session.user);

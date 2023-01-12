@@ -19,5 +19,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:show, :update]
     resources :friendships, only: [:create, :destroy, :update, :index]
     resources :server_memberships, only: [:create, :destroy]
+
+    get "/find_server/:invite_key", to: "servers#find_server"
   end
 end

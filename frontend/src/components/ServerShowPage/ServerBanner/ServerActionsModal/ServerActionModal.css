@@ -1,0 +1,41 @@
+.echo-boost a{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-radius: 5px;
+    text-decoration: none;
+    flex-wrap: wrap;
+    color:#B9BBBE;
+}
+
+.echo-boost a:hover{
+    background-color: #5865F2;
+}
+
+.invite-link{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-radius: 5px;
+    color:#B9BBBE;
+    cursor: pointer;
+}
+
+.invite-link:hover{
+    background-color: #5865F2
+}
+
+.delete-server-button{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-radius: 5px;
+    color: red;
+    cursor: pointer;
+}
+
+.delete-server-button:hover{
+    background-color: red;
+    color: white;
+}
+

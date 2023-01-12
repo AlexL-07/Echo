@@ -4,6 +4,8 @@ import { Redirect, useLocation } from "react-router-dom";
 import React, {useContext, useEffect} from "react";
 import './UserHomePage.css'
 import ServerFormPage from "../ServerNav/ServerFormPage";
+import UserShowModal from "../UserShowModal";
+import StatusDropDown from "../UserShowModal/StatusDropDown";
 const UserHomePage = () => {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
@@ -15,6 +17,8 @@ const UserHomePage = () => {
 
     return (
         <>
+        <UserShowModal />
+        <StatusDropDown />
         <ServerFormPage />
         <div className="user-home">
             <h1>Welcome to the User's Home Page</h1>

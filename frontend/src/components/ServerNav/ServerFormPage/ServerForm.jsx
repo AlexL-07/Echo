@@ -57,7 +57,6 @@ const ServerForm = () => {
     const handleChange = (e) => {
         e.preventDefault();
         setChecked(e.target.checked)
-        console.log(e.target.checked)
         if (e.target.checked === false){
             setIsPublic(true)
         } else if (e.target.checked === true) {

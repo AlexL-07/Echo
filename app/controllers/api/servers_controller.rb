@@ -43,6 +43,12 @@ class Api::ServersController < ApplicationController
         end
     end
 
+    def find_server
+        invite = params[:invite_key]
+        @server = Server.find_by(invite_key: invite)
+        render :show
+    end
+
     private
     def server_params
         params.require(:server).permit(:name, :is_public)

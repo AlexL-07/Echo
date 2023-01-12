@@ -1,4 +1,5 @@
 import csrfFetch from "./csrf";
+import { setCurrentUser } from "./session";
 
 const ADD_USER = "users/addUser"
 const ADD_USERS = "users/addUsers"
@@ -27,10 +28,10 @@ export const fetchUser = (userId) => async (dispatch) => {
     }
 }
 
-export const updateUser = (user) => async (dispatch) => {
-    const res = await csrfFetch(`/api/users/${user.id}`, {
+export const updateUser = (userData) => async (dispatch) => {
+    const res = await csrfFetch(`/api/users/${userData.id}`, {
         method: "PATCH",
-        body: JSON.stringify(user)
+        body: JSON.stringify(userData)
     });
     if(res.ok){
         const data = await res.json();
@@ -52,7 +53,7 @@ const userReducer = (state={}, action) => {
         case ADD_USERS:
             return {...action.payload}
         case ADD_USER:
-            return {...state, [action.payload.id]: action.payload}
+            return {...state, ...action.payload.user}
         case REMOVE_USER:
             const newState = {...state}
             delete newState[action.payload]

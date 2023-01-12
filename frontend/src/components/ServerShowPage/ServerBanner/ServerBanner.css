@@ -7,6 +7,9 @@
 .server-name {
     background-color: #2F3136;
     width: 240px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .channel-bar {
@@ -24,4 +27,8 @@
 .channel-bar-buttons p{
     padding-left: 5px;
     padding-right: 5px
+}
+
+.server-dropdown-button{
+    cursor: pointer;
 }

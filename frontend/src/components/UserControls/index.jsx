@@ -7,10 +7,13 @@ import HeadsetOffIcon from '@mui/icons-material/HeadsetOff';
 import HeadsetIcon from '@mui/icons-material/Headset';
 import SettingsIcon from '@mui/icons-material/Settings';
 import "./UserControls.css"
+import { useContext } from "react";
+import { ModalContext } from "../../App";
 
 const UserControls = () => {
     const sessionUser = useSelector((store) => store.session.user)
     const location = useLocation()
+    const {setIsUserOpen} = useContext(ModalContext)
 
 
     if (location.pathname === '/' || location.pathname === '/error' || !sessionUser){
@@ -18,7 +21,7 @@ const UserControls = () => {
     } else {
         return (
             <div className="user-controls-container">
-                <div className="user-button">
+                <div className="user-button" onClick={()=>{setIsUserOpen(true)}}>
                     <div className="user-circle" id={sessionUser?.id}>
                         <img src={logo} alt="logo-icon" className="user-logo-icon"/>
                     </div>

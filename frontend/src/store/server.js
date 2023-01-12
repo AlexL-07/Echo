@@ -78,7 +78,8 @@ export const createMembership = (membershipData) => async (dispatch) => {
     });
     if (res.ok){
         const data = await res.json();
-        dispatch(addServer(data.server))
+        // dispatch(addServer(data.server))
+        // dispatch(removeServer(data.server.id))
     }
 }
 
@@ -88,6 +89,16 @@ export const removeMembership = (serverId, membershipId) => async (dispatch) => 
     });
     if(res.ok){
         dispatch(removeServer(serverId))
+    }
+}
+
+export const fetchServerWithInvite = (inviteKey) => async (dispatch) => {
+    const res = await csrfFetch(`/api/find_server/${inviteKey}`);
+    if(res.ok){
+        const server = await res.json();
+        const membershipData = {server_id: server.id, user_id: server.currentUser.id}
+        dispatch(createMembership(membershipData));
+        return server
     }
 }
 

@@ -61,12 +61,6 @@ const ServerNav = () => {
                                         <h4 className="pop-text">Explore Public Servers</h4>
                                     </div>
                                 </li>
-                                <li className="server-circle green" onClick={()=>dispatch(logout())}>
-                                    <p className="plus-browse-minus">-</p>
-                                    <div className="pop-out">
-                                        <h4 className="pop-text">Logout</h4>
-                                    </div>
-                                </li>
                             </ul>
                         </nav>
                     </div>

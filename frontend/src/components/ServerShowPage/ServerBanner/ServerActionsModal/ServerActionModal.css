@@ -12,29 +12,45 @@
     background-color: #5865F2;
 }
 
-.invite-link{
+.server-action-button{
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
     border-radius: 5px;
     color:#B9BBBE;
     cursor: pointer;
 }
 
-.invite-link:hover{
+.server-action-button:hover{
     background-color: #5865F2
 }
 
 .delete-server-button{
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
     border-radius: 5px;
+    flex-wrap: wrap;
     color: red;
     cursor: pointer;
 }
 
 .delete-server-button:hover{
+    background-color: red;
+    color: white;
+}
+
+.leave-server-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    flex-wrap: wrap;
+    color: red;
+    cursor: pointer;
+}
+
+.leave-server-button:hover{
     background-color: red;
     color: white;
 }

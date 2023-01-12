@@ -5,6 +5,7 @@ import logo from "../../assets/logo_white.png"
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import online from "../../assets/online.png";
 import disturb from "../../assets/red-do-not-disturb.png";
+import LogoutIcon from '@mui/icons-material/Logout';
 import idle from "../../assets/idle.png";
 import { fetchUser } from "../../store/user";
 
@@ -79,12 +80,19 @@ const UserShow = () => {
                         <h3>{currentUser.username}</h3>
                         <h3 className="user-tag">#{currentUser.user_tag}</h3>
                     </div>
+                    <div className="divider2"></div>
                     <div className="member-since">
                         <p className="member-time-header">ECHO MEMBER SINCE</p>
                         <p className="member-date">{formatDate(currentUser.created_at)}</p>
                     </div>
+                    <div className="divider2"></div>
                     <div className="status-form-container" onMouseOver={()=>setIsStatusOpen(true)}>
                         {statusDisplay(currentUser.status)}
+                    </div>
+                    <div className="divider2"></div>
+                    <div className="signout-container">
+                        <p>Log Out</p>
+                        <LogoutIcon />
                     </div>
                 </div>
             </div>

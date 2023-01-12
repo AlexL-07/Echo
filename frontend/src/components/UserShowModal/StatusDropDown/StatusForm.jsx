@@ -35,20 +35,22 @@ const StatusForm = () => {
             <div className="set-status online" onClick={handleOnline}>
                 <div className="bubble-status">
                     <img src={online} alt="online-logo" className="status-logo online"/>
-                    <p>Online</p>
                 </div>
+                <p>Online</p>
             </div>
+            <div className="divider2"></div>
             <div className="set-status idle" onClick={handleIdle}>
                 <div className="bubble-status">
                     <img src={idle} alt="idle-logo" className="status-logo idle"/>
-                    <p>Idle</p>
                 </div>
+                <p>Idle</p>
             </div>
+            <div className="divider2"></div>
             <div className="set-status dnd" onClick={handleDnd}>
                 <div className="bubble-status">
                     <img src={disturb} alt="dnd-logo" className="status-logo dnd"/>
-                    <p>Do Not Disturb</p>
                 </div>
+                <p>Do Not Disturb</p>
             </div>
         </div>
     )

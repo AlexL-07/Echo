@@ -50,7 +50,7 @@ export const createServer = (server) => async (dispatch) => {
 }
 
 export const updateServer = (server) => async (dispatch) => {
-    const res = await csrfFetch("/api/servers", {
+    const res = await csrfFetch(`/api/servers/${server.id}`, {
         method: "PATCH",
         body: JSON.stringify({
             server: server
@@ -78,8 +78,7 @@ export const createMembership = (membershipData) => async (dispatch) => {
     });
     if (res.ok){
         const data = await res.json();
-        // dispatch(addServer(data.server))
-        // dispatch(removeServer(data.server.id))
+        dispatch(addServer(data.server))
     }
 }
 

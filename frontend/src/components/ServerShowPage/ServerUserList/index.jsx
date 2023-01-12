@@ -9,11 +9,17 @@ const ServerUserList = () => {
     const {serverId} = useParams()
     const server = useSelector((store)=> store.servers[serverId])
     const onlineUsers = [];
+    const idleUsers = [];
+    const dndUsers = [];
     const offlineUsers = [];
     
     if(server){Object.values(server?.users).forEach((user) => {
-        if(user.status === "Online" || user.status === "Idle" || user.status === "Do Not Disturb"){
+        if(user.status === "Online"){
             onlineUsers.push(user)
+        } else if(user.status === "Idle"){
+            idleUsers.push(user)
+        }else if(user.status === "Do Not Disturb"){
+            dndUsers.push(user)
         } else {
             offlineUsers.push(user)
         }
@@ -30,6 +36,32 @@ const ServerUserList = () => {
                             </div>
                                 <p className="user-text">{user.username}</p>
                         </li>
+                    </div>
+                ))}
+            </ul>
+            <p>IDLE</p>
+            <ul className="server-user-list idle">
+                {idleUsers.map((user)=>(
+                    <div className="user-list-item">
+                    <li key={user.id} className="user-item idle">
+                        <div className="user-circle idle" id={user.id}>
+                            <img src={logo} alt="logo" className="logo-icon idle"/>
+                        </div>
+                        <p className="user-text idle">{user.username}</p>
+                    </li>
+                    </div>
+                ))}
+            </ul>
+            <p>DO NOT DISTURB</p>
+            <ul className="server-user-list dnd">
+                {dndUsers.map((user)=>(
+                    <div className="user-list-item">
+                    <li key={user.id} className="user-item dnd">
+                        <div className="user-circle dnd" id={user.id}>
+                            <img src={logo} alt="logo" className="logo-icon dnd"/>
+                        </div>
+                        <p className="user-text dnd">{user.username}</p>
+                    </li>
                     </div>
                 ))}
             </ul>

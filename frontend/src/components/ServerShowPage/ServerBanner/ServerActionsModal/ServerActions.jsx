@@ -7,10 +7,11 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { deleteServer, removeMembership } from "../../../../store/server";
+import EditIcon from '@mui/icons-material/Edit';
 
 const ServerActions = () => {
     const {serverId} = useParams();
-    const {setIsServerActionOpen, setIsServerInviteOpen} = useContext(ModalContext)
+    const {setIsServerActionOpen, setIsServerInviteOpen, setIsServerEditOpen} = useContext(ModalContext)
     const dispatch = useDispatch();
     const server = useSelector((store) => store.servers[serverId]);
     const sessionUser = useSelector((store) => store.session.user);
@@ -28,6 +29,19 @@ const ServerActions = () => {
         history.push(`/channel/@me`);
         setIsServerActionOpen(false);
         return dispatch(removeMembership(serverId, server.users[sessionUser.id].membership_id))
+    }
+
+    const editServer = () => {
+        if(sessionUser.id === server.owner_id){
+            return (
+                <div className="server-action-button edit-server" onClick={handleEdit}>
+                    <p>Edit Server</p>
+                    <EditIcon />
+                </div>
+            )
+        } else {
+            return null
+        }
     }
 
     const deleteLeaveServer = () => {
@@ -54,10 +68,16 @@ const ServerActions = () => {
         setIsServerInviteOpen(true)
     }
 
+    const handleEdit = (e) => {
+        e.preventDefault();
+        setIsServerActionOpen(false)
+        setIsServerEditOpen(true)
+    }
+
 
     return (
         <div className="server-actions">
-            <div className="server-action-button echo-boost">
+            <div className="echo-boost">
                 <a
                     href="https://account.venmo.com/u/Alex-Luong-"
                     target="_blank"
@@ -68,11 +88,15 @@ const ServerActions = () => {
                         <p><DiamondIcon/></p>
                 </a>
             </div>
+            <div className="divider2"></div>
             <div className="server-action-button invite-link" onClick={handleClick}>
                 <p>Invite People</p>
                 <PersonAddAlt1Icon />
             </div>
-            <div className="server-action-button delete-leave-server">
+            <div className="divider2"></div>
+                {editServer()}
+            <div className="divider2"></div>
+            <div className="delete-leave-server">
                 {deleteLeaveServer()}
             </div>
         </div>

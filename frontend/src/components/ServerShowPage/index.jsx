@@ -14,8 +14,9 @@ import ChannelFormPage from "./ChannelFormPage"
 import UserShowModal from "../UserShowModal"
 import StatusDropDown from "../UserShowModal/StatusDropDown"
 import ServerActionModal from "./ServerBanner/ServerActionsModal"
-import ServerInvite from "./ServerBanner/ServerInvitePage/ServerInvite"
 import ServerInvitePage from "./ServerBanner/ServerInvitePage"
+import ChannelEditPage from "./ChannelEditPage"
+import ServerEditPage from "./ServerEditPage"
 
 const ServerShowPage = () => {
     const dispatch = useDispatch();
@@ -43,8 +44,10 @@ const ServerShowPage = () => {
         return(
             <>
             <ServerInvitePage />
+            <ServerEditPage />
             <ServerFormPage />
             <ChannelFormPage />
+            <ChannelEditPage />
             <UserShowModal />
             <StatusDropDown />
             <ServerActionModal />

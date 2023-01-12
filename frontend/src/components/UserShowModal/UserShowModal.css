@@ -59,3 +59,24 @@
 .user-tag{
     color: #B9BBBE;
 }
+
+.divider2 {
+    width: 100%;
+    background: #fff;
+    height: 2px;
+    border-radius: 1px;
+    opacity: 0.15;
+}
+
+.signout-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.signout-container:hover{
+    background-color: #5865F2;
+}

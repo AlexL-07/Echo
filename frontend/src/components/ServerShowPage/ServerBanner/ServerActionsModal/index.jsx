@@ -8,11 +8,11 @@ import "./ServerActionModal.css"
 
 const customStyles = {
     content: {
-      top: "15%",
+      top: "20%",
       left: "17%",
       right: "auto",
       bottom: "auto",
-      height: "160px",
+      height: "230px",
       width: "220px",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",

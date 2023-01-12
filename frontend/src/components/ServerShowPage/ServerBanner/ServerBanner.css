@@ -32,3 +32,24 @@
 .server-dropdown-button{
     cursor: pointer;
 }
+
+.channel-delete-button{
+    cursor: pointer;
+
+}
+
+.channel-delete-button:hover{
+    background-color: #3F4248;
+    color: #DCDDDE;
+
+}
+
+.channel-edit-button{
+    cursor: pointer;
+}
+
+.channel-edit-button:hover{
+    background-color: #3F4248;
+    color: #DCDDDE;
+}
+

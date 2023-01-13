@@ -20,7 +20,7 @@ class Api::UsersController < ApplicationController
     end
 
     def index 
-      @server = Server.find_by[id: params[:server_id]]
+      @server = Server.find_by(id: params[:server_id])
       if @server
         @users = @server.users
       end
@@ -30,9 +30,9 @@ class Api::UsersController < ApplicationController
     def update 
       @user = User.find_by(id: params[:id])
       if @user.update(user_params)
-        # ServersChannel.broadcast_to @server,
-        #   type: 'UPDATE_USER',
-        #   id: @user.id
+        ServersChannel.broadcast_to @server,
+          type: 'UPDATE_USER',
+          id: @user.id
         render json: nil, status: :ok
       else 
         render json: {errors: @user.errors.full_messages}, status: 422

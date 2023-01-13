@@ -7,20 +7,20 @@ import online from "../../assets/online.png";
 import disturb from "../../assets/red-do-not-disturb.png";
 import LogoutIcon from '@mui/icons-material/Logout';
 import idle from "../../assets/idle.png";
-import { fetchUser } from "../../store/user";
+// import { fetchUser } from "../../store/user";
 import { logout } from "../../store/session";
 
 const UserShow = () => {
     const {setIsStatusOpen} = useContext(ModalContext)
     const dispatch = useDispatch()
-    const currentUser = useSelector((store) => store.users)
     const sessionUser = useSelector((store) => store.session.user)
+    // const currentUser = useSelector((store) => store.users[sessionUser.id])
     
-    useEffect(()=>{
-        if(sessionUser){
-            dispatch(fetchUser(sessionUser.id))
-        }
-    }, [sessionUser, dispatch])
+    // useEffect(()=>{
+    //     if(sessionUser){
+    //         dispatch(fetchUser(sessionUser.id))
+    //     }
+    // }, [sessionUser, dispatch])
 
     const formatDate = (timestamp) => {
         let dateObj = new Date(timestamp);
@@ -77,17 +77,17 @@ const UserShow = () => {
             <div className="user-info-container">
                 <div className="user-info-body">
                     <div className="username-usertag">
-                        <h3>{currentUser.username}</h3>
-                        <h3 className="user-tag">#{currentUser.user_tag}</h3>
+                        <h3>{sessionUser.username}</h3>
+                        <h3 className="user-tag">#{sessionUser.user_tag}</h3>
                     </div>
                     <div className="divider2"></div>
                     <div className="member-since">
                         <p className="member-time-header">ECHO MEMBER SINCE</p>
-                        <p className="member-date">{formatDate(currentUser.created_at)}</p>
+                        <p className="member-date">{formatDate(sessionUser.created_at)}</p>
                     </div>
                     <div className="divider2"></div>
                     <div className="status-form-container" onMouseOver={()=>setIsStatusOpen(true)}>
-                        {statusDisplay(currentUser.status)}
+                        {statusDisplay(sessionUser.status)}
                     </div>
                     <div className="divider2"></div>
                     <div className="signout-container" onClick={()=>dispatch(logout())}>

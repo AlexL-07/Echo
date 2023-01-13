@@ -2,7 +2,6 @@ import React, {useContext, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import {fetchServers} from "../../store/server";
-import { logout } from "../../store/session";
 import logo from "../../assets/logo_white.png"
 import ExploreIcon from '@mui/icons-material/Explore';
 import "./ServerNav.css"
@@ -32,7 +31,7 @@ const ServerNav = () => {
                             <ul className="server-circles">
                                 <NavLink to="/channel/@me" className="server-circle purple">
                                     <li>
-                                        <img src={logo} alt="logo" className="logo-icon" />
+                                        <img src={logo} alt="logo" className="logo-icon-server" />
                                         <div className="pop-out">
                                             <h4 className="pop-text">Home</h4>
                                         </div>
@@ -40,7 +39,7 @@ const ServerNav = () => {
                                 </NavLink> 
                                 <li className="divider"> </li> 
                                 {Object.values(servers)?.map((server) => (
-                                    <NavLink to={`/servers/${server.id}/channels/${server.defaultChannel.id}`} key={server.id} className="server-circle purple">
+                                    <NavLink to={`/servers/${server.id}`} key={server.id} className="server-circle purple">
                                         <li>
                                             <p>{server.name[0]}</p>
                                             <div className="pop-out">

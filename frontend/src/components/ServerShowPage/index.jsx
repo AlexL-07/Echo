@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react"
+import { useDebugValue, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Redirect, useParams } from "react-router-dom"
+import { Redirect, useHistory, useParams } from "react-router-dom"
 import { fetchServer } from "../../store/server"
+import { fetchUsers } from "../../store/user"
 // import { fetchChannels } from "../../store/channel"
 import "./ServerShowPage.css"
 import ChannelNav from "./ChannelNav"
 import ServerUserList from "./ServerUserList";
 import ServerBanner from "./ServerBanner";
 import ChannelShowPage from "./ChannelShowPage"
-import { fetchChannels } from "../../store/channel"
+import { fetchChannels, addChannel, removeChannel, clearChannels } from "../../store/channel"
 import ServerFormPage from "../ServerNav/ServerFormPage"
 import ChannelFormPage from "./ChannelFormPage"
 import UserShowModal from "../UserShowModal"
@@ -17,6 +18,7 @@ import ServerActionModal from "./ServerBanner/ServerActionsModal"
 import ServerInvitePage from "./ServerBanner/ServerInvitePage"
 import ChannelEditPage from "./ChannelEditPage"
 import ServerEditPage from "./ServerEditPage"
+import consumer from "../consumer"
 
 const ServerShowPage = () => {
     const dispatch = useDispatch();
@@ -26,19 +28,46 @@ const ServerShowPage = () => {
     const channels = useSelector((store)=> store.channels)
     const channel = useSelector((store)=>store.channels[channelId])
     const [pause, setPause] = useState(true);
-    useEffect(()=>{
-        dispatch(fetchServer(serverId))
-        .then(()=>{
-            setPause(false)
-        })
-        // dispatch(fetchChannels(serverId))
-        // didn't add fetch channels yet
-    }, [dispatch, serverId])
+    const history = useHistory();
+    
+    useEffect(() => {
+        dispatch(clearChannels());
+        dispatch(fetchServer(serverId));
+        dispatch(fetchChannels(serverId));
+        dispatch(fetchUsers(serverId));
+        const subscription = consumer.subscriptions.create(
+          { channel: "ServersChannel", id: serverId },
+          {
+            received: (channelObj) => {
+              switch (channelObj.type) {
+                case "RECEIVE_CHANNEL":
+                  dispatch(addChannel(channelObj));
+                  break;
+                case "UPDATE_CHANNEL":
+                  dispatch(addChannel(channelObj));
+                  break;
+                case "DESTROY_CHANNEL":
+                  dispatch(removeChannel(channelObj.id));
+                  if (+channelId === channel.id) {
+                    history.push(
+                      `/servers/${serverId}/channels/${server.defaultChannel.id}`
+                    );
+                  }
+                  break;
+                default:
+                  console.log("Unhandled broadcast: ", channelObj.type);
+                  break;
+              }
+            },
+          }
+        );
+        return () => subscription?.unsubscribe();
+      }, [dispatch, serverId, channelId]);
 
     if (!sessionUser) return <Redirect to='/'/>
     if(!channelId){
         return (
-            !pause && <Redirect to={`/servers/${server.id}/channels/${server.defaultChannel.id}`} />
+            <Redirect to={`/servers/${server.id}/channels/${server.defaultChannel.id}`} />
         )
     } else {
         return(
@@ -60,8 +89,10 @@ const ServerShowPage = () => {
                         <ChannelNav />
                     </div>
                     <div className="channel-show">
+                    
                         <ChannelShowPage />
                     </div>
+                    
                     <div className="server-membersship">
                         <ServerUserList />
                     </div>

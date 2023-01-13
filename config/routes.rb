@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :channels, only: [:create, :index, :destroy, :update] do 
         resources :messages, only: [:index, :destroy]
       end
+      # resources :users, only: [:index]
     end
     
     resources :channels, only: [:show] do
@@ -20,10 +21,10 @@ Rails.application.routes.draw do
     resources :friendships, only: [:create, :destroy, :update, :index]
     resources :server_memberships, only: [:create, :destroy]
 
-    get '*path', to: 'static_pages#frontend'
-
+    
     get "/public_servers", to: "servers#public_servers"
-
+    
     get "/find_server/:invite_key", to: "servers#find_server"
+    get '*path', to: 'static_pages#frontend'
   end
 end

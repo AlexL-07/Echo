@@ -1,3 +1,20 @@
+.user-circle{
+  width: 35px;
+  height: 35px;
+  margin-left: 3px;
+  margin-right: 10px;
+  border-radius: 60%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.user-circle-container{
+    display: flex;
+  align-items: center;
+}
 .server-members{
     background-color: #2F3136;
     width: 240px;
@@ -12,17 +29,41 @@
     border-radius: 4px;
     user-select: none;
     cursor: pointer;
+    align-items: center;
 }
 
 .user-item:hover{
     background-color: #3F4248
 }
 
-.user-logo-icon {
-    width: 30px;
-    padding-top: 5px;
+.logo-icon {
+    width: 25px;
+    /* margin-left: 10px; */
+    margin-bottom: 5px;
+}
+
+.server-members p{
+    font-size: 15px;
+    font-family: "gg-sans-bold";
+    color: #B9BBBE; 
 }
 
 .top-user-text{
     margin-top: 0px;
+}
+
+#online{
+    background-color: #3CA45B;
+}
+
+#idle{
+    background-color: #FCA21C;
+}
+
+#dnd{
+    background-color: #EC4444;
+}
+
+#offline{
+    background-color: #747C8C;
 }

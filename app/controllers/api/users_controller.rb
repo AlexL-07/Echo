@@ -19,10 +19,21 @@ class Api::UsersController < ApplicationController
       render :show
     end
 
+    def index 
+      @server = Server.find_by[id: params[:server_id]]
+      if @server
+        @users = @server.users
+      end
+      render :index
+    end
+
     def update 
       @user = User.find_by(id: params[:id])
       if @user.update(user_params)
-        render :show
+        # ServersChannel.broadcast_to @server,
+        #   type: 'UPDATE_USER',
+        #   id: @user.id
+        render json: nil, status: :ok
       else 
         render json: {errors: @user.errors.full_messages}, status: 422
       end
@@ -41,10 +52,6 @@ class Api::UsersController < ApplicationController
     def user_params 
       params.require(:user).permit(:email, :username, :password, :user_tag, :status, :id, :created_at, :updated_at, :profile_image)
     end 
-
-    def status_params
-      params.require(:user).permit(:status)
-    end
     
     def generate_unique_user_tag
       tag = rand.to_s[2..5]

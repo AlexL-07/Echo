@@ -9,6 +9,7 @@
 ApplicationRecord.transaction do 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
+    Friendship.destroy_all
     ServerMembership.destroy_all
     Message.destroy_all
     Channel.destroy_all
@@ -22,6 +23,7 @@ ApplicationRecord.transaction do
     ApplicationRecord.connection.reset_pk_sequence!('channels')
     ApplicationRecord.connection.reset_pk_sequence!('messages')
     ApplicationRecord.connection.reset_pk_sequence!('server_memberships')
+    ApplicationRecord.connection.reset_pk_sequence!('friendships')
 
 
 
@@ -51,6 +53,30 @@ ApplicationRecord.transaction do
       password: 'password',
       status: 'Online',
       user_tag: "3333"
+    )
+
+    User.create!(
+      username: 'Demo4.0', 
+      email: 'demo4@user.io', 
+      password: 'password',
+      status: 'Online',
+      user_tag: "4444"
+    )
+
+    User.create!(
+      username: 'Demo5.0', 
+      email: 'demo5@user.io', 
+      password: 'password',
+      status: 'Online',
+      user_tag: "5555"
+    )
+
+    User.create!(
+      username: 'Demo6.0', 
+      email: 'demo6@user.io', 
+      password: 'password',
+      status: 'Online',
+      user_tag: "6666"
     )
 
 
@@ -117,6 +143,60 @@ ApplicationRecord.transaction do
       user_id: 2,
       server_id: 2
     )
+
+    ServerMembership.create!(
+      user_id: 2,
+      server_id: 1
+    )
+
+    ServerMembership.create!(
+      user_id: 3,
+      server_id: 1
+    )
+
+    ServerMembership.create!(
+      user_id: 3,
+      server_id: 2
+    )
+
+    ServerMembership.create!(
+      user_id: 4,
+      server_id: 1
+    )
+
+    puts "Creating friendships..."
+
+    Friendship.create!(
+      user_id: 1,
+      friend_id: 2,
+      status: "Accepted"
+    )
+
+    Friendship.create!(
+      user_id: 1,
+      friend_id: 3,
+      status: "Pending"
+    )
+
+    Friendship.create!(
+      user_id: 1,
+      friend_id: 4,
+      status: "Blocked"
+    )
+
+    Friendship.create!(
+      user_id: 1,
+      friend_id: 5,
+      status: "Accepted"
+    )
+
+    Friendship.create!(
+      user_id: 1,
+      friend_id: 6,
+      status: "Pending"
+    )
+
+    
   
     # More users
     # 10.times do 

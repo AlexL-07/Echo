@@ -1,4 +1,5 @@
 class Api::FriendshipsController < ApplicationController
+    wrap_parameters include: Friendship.attribute_names
     def create
         @friendship = Friendship.create(friendship_params)
         @friendship.user_id = current_user.id
@@ -11,9 +12,13 @@ class Api::FriendshipsController < ApplicationController
     end
 
     def index
-        @user = current_user
-        @friends = @user.friends
-        render :index
+        if current_user
+            @user = current_user
+            @friendships = @user.friends
+            render :index
+        else 
+            render json: { errors: ["No user is logged in"]}, status: 422
+        end
     end
 
     def update

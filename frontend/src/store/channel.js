@@ -2,6 +2,7 @@ import csrfFetch from './csrf';
 const ADD_CHANNEL = "channels/addChannel"
 const ADD_CHANNELS = "channels/addChannels"
 const REMOVE_CHANNEL = "channels/removeChannels"
+const CLEAR_CHANNELS = "channels/clearChannels";
 
 export const addChannel = (channel) => ({
     type: ADD_CHANNEL,
@@ -66,6 +67,10 @@ export const deleteChannel = (channel) => async (dispatch) => {
     }
 };
 
+export const clearChannels = () => ({
+  type: CLEAR_CHANNELS
+});
+
 const channelReducer = (state={}, action) => {
     switch (action.type){
         case ADD_CHANNELS:
@@ -76,6 +81,8 @@ const channelReducer = (state={}, action) => {
             const newState = {...state}
             delete newState[action.payload]
             return newState
+        case CLEAR_CHANNELS:
+            return {};
         default: 
             return state
             

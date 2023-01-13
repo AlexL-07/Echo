@@ -1,3 +1,59 @@
 .user-home{
     padding-left: 80px;
+    display: flex;
+    flex-direction: column;
 }
+
+.user-main-home{
+  width: 240px;
+  height: 100vh;
+  background-color: #2F3136;
+  color: white;
+}
+
+.user-banner{
+    display: flex;
+    border-bottom: 1px solid black;
+}
+
+.user-home-left{
+    background-color: #2F3136;
+    width: 240px;
+}
+
+.user-home-right{
+    display: flex;
+    width: 80%;
+    padding-left: 10px;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.friend-label{
+    display: flex;
+    align-items: center;
+}
+
+.user-blocked-button{
+    padding-right: 1000px;
+}
+
+.user-friend-button{
+  background: none;
+  border: none;
+  font-family: "gg-sans-med", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #B9BBBE;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.user-friend-button:hover {
+    background-color: #45494e;
+    color: white;
+  }

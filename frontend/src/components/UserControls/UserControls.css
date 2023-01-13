@@ -19,15 +19,25 @@
     border-radius: 4px;
     user-select: none;
     cursor: pointer;
+
 }
 
 .user-button:hover {
     background-color: #3F4248;
 }
 
-.user-circle{
-    padding-right: 10px;
-}
+/* .user-circle{
+    width: 27px;
+  height: 36px;
+  margin-left: 3px;
+  margin-right: 10px;
+  border-radius: 60%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+} */
 
 .user-information{
     display: flex;

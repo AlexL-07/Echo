@@ -7,7 +7,8 @@ import "./ChannelShowPage.css"
 import logo from "../../../assets/logo_white.png"
 import hashtag from "../../../assets/channel-hashtag.png"
 import consumer from "../../consumer";
-import { fetchChannel } from "../../../store/channel";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { deleteMessage } from "../../../store/message";
 
 
 const useChatScroll = (dep) => {
@@ -69,7 +70,7 @@ const ChannelShowPage = () => {
         if (minutes < 10) {
           minutes = "0" + minutes;
         }
-        if (hours >= 12) {
+        if (hours > 12) {
           hours %= 12;
           meridiem = "PM";
         }
@@ -84,8 +85,8 @@ const ChannelShowPage = () => {
                         Object.values(messages)?.map((message) => {
                             return (
                                 <li className="channel-message" key={message?.id}>
-                                    <div className="user-circle" id={message?.author?.id}>
-                                        <img src={logo} alt="logo-icon" className="user-logo-icon"/>
+                                    <div className="user-circle" id={message?.author?.status?.toLowerCase()}>
+                                        <img src={logo} alt="logo-icon" className="logo-icon"/>
                                     </div>
                                     <div className="message-container">
                                         <div className="message-info">

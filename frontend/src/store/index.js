@@ -5,6 +5,7 @@ import serverReducer from './server';
 import channelReducer from './channel';
 import messageReducer from './message';
 import userReducer from './user';
+import friendshipReducer from './friendship';
 
 let enhancer;
 export const rootReducer = combineReducers({
@@ -13,6 +14,8 @@ export const rootReducer = combineReducers({
     channels: channelReducer,
     messages: messageReducer,
     users: userReducer,
+    friendships: friendshipReducer
+
 })
 
 if (process.env.NODE_ENV === 'production') {

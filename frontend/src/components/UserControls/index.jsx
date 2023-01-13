@@ -22,8 +22,8 @@ const UserControls = () => {
         return (
             <div className="user-controls-container">
                 <div className="user-button" onClick={()=>{setIsUserOpen(true)}}>
-                    <div className="user-circle" id={sessionUser?.id}>
-                        <img src={logo} alt="logo-icon" className="user-logo-icon"/>
+                    <div className="user-circle" id={sessionUser?.status.toLowerCase()}>
+                        <img src={logo} alt="logo-icon" className="logo-icon"/>
                     </div>
                     <div className="user-information">
                         <p className="current-username">{sessionUser?.username}</p>

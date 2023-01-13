@@ -31,7 +31,7 @@ const ServerUserList = () => {
                 {onlineUsers.map((user)=>(
                     <div className="user-list-item">
                         <li key={user.id} className="user-item online">
-                            <div className="user-circle" id={user.id}>
+                            <div className="user-circle online" id={user.id}>
                                 <img src={logo} alt="logo-icon" className="user-logo-icon"/>
                             </div>
                                 <p className="user-text">{user.username}</p>

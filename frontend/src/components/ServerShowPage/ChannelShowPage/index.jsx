@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { addMessage, fetchMessages, removeMessage } from "../../../store/message";
@@ -8,11 +8,24 @@ import logo from "../../../assets/logo_white.png"
 import hashtag from "../../../assets/channel-hashtag.png"
 import consumer from "../../consumer";
 import { fetchChannel } from "../../../store/channel";
+
+
+const useChatScroll = (dep) => {
+    const ref = useRef(null);
+    useEffect(() => {
+      if (ref.current) {
+        ref.current.scrollTop = ref.current.scrollHeight;
+      }
+    }, [dep]);
+    return ref;
+}
+
 const ChannelShowPage = () => {
     const {serverId, channelId} = useParams();
     const channel = useSelector((store) => store.channels[channelId])
     const messages = useSelector((store) => store.messages)
     const dispatch = useDispatch();
+    const ref = useChatScroll(messages)
 
     useEffect(()=>{
         dispatch(fetchMessages(serverId, channelId));
@@ -95,14 +108,15 @@ const ChannelShowPage = () => {
 
     return (
         <>
-            <div className="channel-show-header">
-                <img src={hashtag} alt="hash-tagicon" className="channel-header-hashtag" />
-                <h1>{`Welcome to #${channel?.name}!`}</h1>
-                <p>{`This is the start of the #${channel?.name} channel.`}</p>
-            </div>
-            <div className="channel-message-index">
-                <MessageFormat />
-                
+            <div className="channel-show-body" ref={ref}>
+                <div className="channel-show-header" >
+                    <img src={hashtag} alt="hash-tagicon" className="channel-header-hashtag" />
+                    <h1>{`Welcome to #${channel?.name}!`}</h1>
+                    <p>{`This is the start of the #${channel?.name} channel.`}</p>
+                </div>
+                <div className="channel-message-index">
+                    <MessageFormat />
+                </div>
             </div>
             <div className="channel-message-form-container">
                 <MessageForm />

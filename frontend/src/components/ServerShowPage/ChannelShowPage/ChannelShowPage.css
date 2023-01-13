@@ -41,5 +41,11 @@
     margin-top: 5px;
 }
 
+.channel-show-body{
+    overflow-y: scroll;
+    width: 1350px;
+    max-height: calc(100vh - 120px);
+}
+
 
 

@@ -14,11 +14,7 @@
     height: 800px;
 } */
 
-.channel-show{
-    overflow-y: scroll;
-    width: 1400px;
-    max-height: 800px;
-}
+
 
 ::-webkit-scrollbar {
   background: rgba(0, 0, 0, 0.1);

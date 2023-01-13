@@ -53,6 +53,22 @@ ApplicationRecord.transaction do
       user_tag: "3333"
     )
 
+    User.create!(
+      username: 'Demo4.0', 
+      email: 'demo4@user.io', 
+      password: 'password',
+      status: 'Online',
+      user_tag: "4444"
+    )
+
+    User.create!(
+      username: 'Demo5.0', 
+      email: 'demo5@user.io', 
+      password: 'password',
+      status: 'Online',
+      user_tag: "5555"
+    )
+
 
 
     puts "Creating servers..."

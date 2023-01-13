@@ -60,8 +60,10 @@ const ServerShowPage = () => {
                         <ChannelNav />
                     </div>
                     <div className="channel-show">
+                    
                         <ChannelShowPage />
                     </div>
+                    
                     <div className="server-membersship">
                         <ServerUserList />
                     </div>

@@ -40,7 +40,7 @@ const ServerNav = () => {
                                 </NavLink> 
                                 <li className="divider"> </li> 
                                 {Object.values(servers)?.map((server) => (
-                                    <NavLink to={`/servers/${server.id}/channels/${server.defaultChannel.id}`} key={server.id} className="server-circle purple">
+                                    <NavLink to={`/servers/${server.id}`} key={server.id} className="server-circle purple">
                                         <li>
                                             <p>{server.name[0]}</p>
                                             <div className="pop-out">

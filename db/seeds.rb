@@ -145,11 +145,6 @@ ApplicationRecord.transaction do
     )
 
     ServerMembership.create!(
-      user_id: 2,
-      server_id: 1
-    )
-
-    ServerMembership.create!(
       user_id: 3,
       server_id: 1
     )
@@ -166,35 +161,35 @@ ApplicationRecord.transaction do
 
     puts "Creating friendships..."
 
-    Friendship.create!(
-      user_id: 1,
-      friend_id: 2,
-      status: "Accepted"
-    )
+    # Friendship.create!(
+    #   user_id: 1,
+    #   friend_id: 2,
+    #   status: "Accepted"
+    # )
 
-    Friendship.create!(
-      user_id: 1,
-      friend_id: 3,
-      status: "Pending"
-    )
+    # Friendship.create!(
+    #   user_id: 1,
+    #   friend_id: 3,
+    #   status: "Pending"
+    # )
 
-    Friendship.create!(
-      user_id: 1,
-      friend_id: 4,
-      status: "Blocked"
-    )
+    # Friendship.create!(
+    #   user_id: 1,
+    #   friend_id: 4,
+    #   status: "Blocked"
+    # )
 
-    Friendship.create!(
-      user_id: 1,
-      friend_id: 5,
-      status: "Accepted"
-    )
+    # Friendship.create!(
+    #   user_id: 1,
+    #   friend_id: 5,
+    #   status: "Accepted"
+    # )
 
-    Friendship.create!(
-      user_id: 1,
-      friend_id: 6,
-      status: "Pending"
-    )
+    # Friendship.create!(
+    #   user_id: 1,
+    #   friend_id: 6,
+    #   status: "Pending"
+    # )
 
     
   

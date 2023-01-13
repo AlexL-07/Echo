@@ -49,6 +49,10 @@ class Api::ServersController < ApplicationController
         render :show
     end
 
+    def public_servers
+        servers = Server.all
+    end
+
     private
     def server_params
         params.require(:server).permit(:name, :is_public)

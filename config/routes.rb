@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
     get '*path', to: 'static_pages#frontend'
 
+    get "/public_servers", to: "servers#public_servers"
+
     get "/find_server/:invite_key", to: "servers#find_server"
   end
 end

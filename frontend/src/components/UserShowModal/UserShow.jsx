@@ -8,6 +8,7 @@ import disturb from "../../assets/red-do-not-disturb.png";
 import LogoutIcon from '@mui/icons-material/Logout';
 import idle from "../../assets/idle.png";
 import { fetchUser } from "../../store/user";
+import { logout } from "../../store/session";
 
 const UserShow = () => {
     const {setIsStatusOpen} = useContext(ModalContext)
@@ -89,7 +90,7 @@ const UserShow = () => {
                         {statusDisplay(currentUser.status)}
                     </div>
                     <div className="divider2"></div>
-                    <div className="signout-container">
+                    <div className="signout-container" onClick={()=>dispatch(logout())}>
                         <p>Log Out</p>
                         <LogoutIcon />
                     </div>

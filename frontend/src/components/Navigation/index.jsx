@@ -40,9 +40,7 @@ const Navigation = () => {
                 <li><NavLink to="/">Download</NavLink></li>
                 <li><NavLink to="/">Nitro</NavLink></li>
                 <li><NavLink to="/">Discover</NavLink></li>
-                <li><NavLink to="/">Safety</NavLink></li>
                 <li><NavLink to="/">Support</NavLink></li>
-                <li><NavLink to="/">Blog</NavLink></li>
                 <li><NavLink to="/">Careers</NavLink></li>
             </ul>
             <div>

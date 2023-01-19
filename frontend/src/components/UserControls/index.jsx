@@ -12,6 +12,7 @@ import { ModalContext } from "../../App";
 
 const UserControls = () => {
     const sessionUser = useSelector((store) => store.session.user)
+    const user = useSelector((store) => store.users[sessionUser.id])
     const location = useLocation()
     const {setIsUserOpen} = useContext(ModalContext)
 
@@ -22,12 +23,12 @@ const UserControls = () => {
         return (
             <div className="user-controls-container">
                 <div className="user-button" onClick={()=>{setIsUserOpen(true)}}>
-                    <div className="user-circle" id={sessionUser?.status.toLowerCase()}>
+                    <div className="user-circle" id={user?.status.toLowerCase()}>
                         <img src={logo} alt="logo-icon" className="logo-icon"/>
                     </div>
                     <div className="user-information">
-                        <p className="current-username">{sessionUser?.username}</p>
-                        <p className="current-user-tag">#{sessionUser?.user_tag}</p>
+                        <p className="current-username">{user?.username}</p>
+                        <p className="current-user-tag">#{user?.user_tag}</p>
                     </div>
                 </div>
                 <div className="audio-and-settings">

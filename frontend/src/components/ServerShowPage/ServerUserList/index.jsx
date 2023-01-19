@@ -13,37 +13,39 @@ const ServerUserList = () => {
     const {serverId} = useParams()
     const dispatch = useDispatch()
     const server = useSelector((store)=> store.servers[serverId])
+    const sessionUser = useSelector((store) => store.session.user)
+    const users = useSelector((store) => store.users)
     const onlineUsers = [];
     const idleUsers = [];
     const dndUsers = [];
     const offlineUsers = [];
 
-    // useEffect(() => {
-    //     const subscription = consumer.subscriptions.create(
-    //         {channel: "ServersChannel", id: serverId},
-    //         {
-    //             received: (userObj) => {
-    //                 switch (userObj.type) {
-    //                     case "RECEIVE_USER":
-    //                         dispatch(addUser(userObj));
-    //                         break;
-    //                     case "UPDATE_USER":
-    //                         dispatch(addUser(userObj));
-    //                         break;
-    //                     case "REMOVE_USER":
-    //                         dispatch(removeUser(userObj))
-    //                         break;
-    //                     default:
-    //                         console.log("Unhandled broadcast: ", userObj.type);
-    //                         break;
-    //                 }
-    //             }
-    //         }
-    //     )
-    //     return () => subscription?.unsubscribe();
-    // }, [dispatch, serverId])
+    useEffect(() => {
+        const subscription = consumer.subscriptions.create(
+            {channel: "ServersChannel", id: serverId},
+            {
+                received: (userObj) => {
+                    switch (userObj.type) {
+                        case "RECEIVE_USER":
+                            dispatch(addUser(userObj));
+                            break;
+                        case "UPDATE_USER":
+                            dispatch(addUser(userObj));
+                            break;
+                        case "REMOVE_USER":
+                            dispatch(removeUser(userObj))
+                            break;
+                        default:
+                            console.log("Unhandled broadcast: ", userObj.type);
+                            break;
+                    }
+                }
+            }
+        )
+        return () => subscription?.unsubscribe();
+    }, [dispatch, serverId])
     
-    if(server){Object.values(server?.users).forEach((user) => {
+    if(server){Object.values(users).forEach((user) => {
         if(user.status === "Online"){
             onlineUsers.push(user)
         } else if(user.status === "Idle"){

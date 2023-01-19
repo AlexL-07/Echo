@@ -32,7 +32,7 @@ class Api::UsersController < ApplicationController
       if @user.update(user_params)
         ServersChannel.broadcast_to @server,
           type: 'UPDATE_USER',
-          id: @user.id
+          **from_template('api/users/wbs', user: @user)
         render json: nil, status: :ok
       else 
         render json: {errors: @user.errors.full_messages}, status: 422

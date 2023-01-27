@@ -9,6 +9,7 @@ import hashtag from "../../../assets/channel-hashtag.png"
 import consumer from "../../consumer";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { deleteMessage } from "../../../store/message";
+import EditIcon from '@mui/icons-material/Edit';
 
 
 const useChatScroll = (dep) => {
@@ -23,10 +24,12 @@ const useChatScroll = (dep) => {
 
 const ChannelShowPage = () => {
     const {serverId, channelId} = useParams();
-    const channel = useSelector((store) => store.channels[channelId])
-    const messages = useSelector((store) => store.messages)
+    const channel = useSelector((store) => store.channels[channelId]);
+    const messages = useSelector((store) => store.messages);
+    const sessionUser = useSelector((store) => store.session.user)
     const dispatch = useDispatch();
-    const ref = useChatScroll(messages)
+    const ref = useChatScroll(messages);
+    const server = useSelector((store) => store.servers[serverId]);
 
     useEffect(()=>{
         dispatch(fetchMessages(serverId, channelId));
@@ -77,6 +80,29 @@ const ChannelShowPage = () => {
         return `${month}/${date}/${year} ${hours}:${minutes} ${meridiem}`;
       };
 
+    const handleMessageDelete = (messageId) => {
+        return dispatch(deleteMessage(serverId, channelId, messageId))
+    }
+
+    const MessageUpdateDelete = (message) => {
+        if(message.author_id === sessionUser.id){
+            return(
+                <div className="message-ud">
+                    <p><EditIcon /></p>
+                    <p onClick={()=>handleMessageDelete(message.id)}><DeleteForeverIcon /></p>
+                </div>
+            )
+        } else if(sessionUser.id  === server.owner_id){
+            return(
+                <div className="message-ud">
+                    <p><DeleteForeverIcon /></p>
+                </div>
+            )
+        } else {
+            return null
+        }
+    }
+
     const MessageFormat = () => {
         return (
             <div className="messages-body">
@@ -85,18 +111,21 @@ const ChannelShowPage = () => {
                         Object.values(messages)?.map((message) => {
                             return (
                                 <li className="channel-message" key={message?.id}>
-                                    <div className="user-circle" id={message?.author?.status?.toLowerCase()}>
-                                        <img src={logo} alt="logo-icon" className="logo-icon"/>
-                                    </div>
-                                    <div className="message-container">
-                                        <div className="message-info">
-                                            <div className="message-username">{message?.author?.username}</div>
-                                            <div className="message-date">{formatMessageDate(message?.created_at)}</div>
+                                    <div className="message-body-container">
+                                        <div className="user-circle" id={message?.author?.status?.toLowerCase()}>
+                                            <img src={logo} alt="logo-icon" className="logo-icon"/>
                                         </div>
-                                        <div className="message-content">
-                                            {message.content}
+                                        <div className="message-container">
+                                            <div className="message-info">
+                                                <div className="message-username">{message?.author?.username}</div>
+                                                <div className="message-date">{formatMessageDate(message?.created_at)}</div>
+                                            </div>
+                                            <div className="message-content">
+                                                {message.content}
+                                            </div>
                                         </div>
                                     </div>
+                                    {MessageUpdateDelete(message)}
                                 </li>
                             )
                         })

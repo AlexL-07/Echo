@@ -2,13 +2,31 @@
     display: flex;
     width: 1300px;
     align-items: center;
+    justify-content: space-between;
     margin: 7px 0;
     padding: 10px 28px 10px 10px;
     border-radius: 3px;
 }
 
+.message-body-container{
+    display: flex;
+    align-items: center;
+}
+
 .channel-message:hover {
     background-color: #323538;
+}
+
+.message-ud{
+    display: flex;
+}
+
+.message-ud p{
+    padding: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    cursor: pointer;
+    margin: 0px;
 }
 
 .message-info{

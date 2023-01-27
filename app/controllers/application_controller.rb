@@ -28,11 +28,21 @@ class ApplicationController < ActionController::API
 
     def login!(user) 
         user.status = "Online"
+        user.servers.each do |server|
+            ServersChannel.broadcast_to server,
+            type: 'UPDATE_USER',
+            **from_template('api/users/wbs', user: user)
+        end
         session[:session_token] = user.reset_session_token!
     end
 
     def logout!
         current_user.status = "Offline"
+        current_user.servers.each do |server|
+            ServersChannel.broadcast_to server,
+            type: 'UPDATE_USER',
+            **from_template('api/users/wbs', user: current_user)
+        end
         current_user.reset_session_token! 
         session[:session_token] = nil 
         

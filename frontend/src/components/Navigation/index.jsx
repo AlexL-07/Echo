@@ -37,11 +37,21 @@ const Navigation = () => {
         <div className='navbar-container'>
             <NavLink to="/"><img src={full_logo} className="logo" alt="full-logo-img"/></NavLink>
             <ul className='nav-bar-links'>
-                <li><NavLink to="/">Download</NavLink></li>
-                <li><NavLink to="/">Nitro</NavLink></li>
-                <li><NavLink to="/">Discover</NavLink></li>
-                <li><NavLink to="/">Support</NavLink></li>
-                <li><NavLink to="/">Careers</NavLink></li>
+                <li>
+                    <a
+                        href='https://www.linkedin.com/in/alex-luong-15b488183/'
+                        target="_blank">
+                            LinkedIn
+                    </a>
+                </li>
+                <li>
+                        <a
+                            href='https://github.com/AlexL-07'
+                            target="_blank">
+                                GitHub
+                        </a>
+                </li>
+                <li><NavLink to="/">Portfolio</NavLink></li>
             </ul>
             <div>
                 {sessionLinks}

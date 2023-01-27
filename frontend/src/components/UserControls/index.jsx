@@ -12,7 +12,7 @@ import { ModalContext } from "../../App";
 
 const UserControls = () => {
     const sessionUser = useSelector((store) => store.session.user)
-    const user = useSelector((store) => store.users[sessionUser.id])
+    // const user = useSelector((store) => store.users[sessionUser.id])
     const location = useLocation()
     const {setIsUserOpen} = useContext(ModalContext)
 
@@ -20,6 +20,7 @@ const UserControls = () => {
     if (location.pathname === '/' || location.pathname === '/error' || !sessionUser){
         return null
     } else {
+        const user = sessionUser
         return (
             <div className="user-controls-container">
                 <div className="user-button" onClick={()=>{setIsUserOpen(true)}}>

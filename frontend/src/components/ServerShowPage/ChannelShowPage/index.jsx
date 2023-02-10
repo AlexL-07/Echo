@@ -88,8 +88,8 @@ const ChannelShowPage = () => {
         if(message.author_id === sessionUser.id){
             return(
                 <div className="message-ud">
-                    <p><EditIcon /></p>
-                    <p onClick={()=>handleMessageDelete(message.id)}><DeleteForeverIcon /></p>
+                    <div className="message-edit-button"><EditIcon /></div>
+                    <div className="message-delete-button" onClick={()=>handleMessageDelete(message.id)}><DeleteForeverIcon /></div>
                 </div>
             )
         } else if(sessionUser.id  === server.owner_id){

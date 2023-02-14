@@ -21,6 +21,7 @@ function App() {
   const [isServerInviteOpen, setIsServerInviteOpen] = useState(false)
   const [isChannelEditOpen, setIsChannelEditOpen] = useState(false)
   const [isServerEditOpen, setIsServerEditOpen] = useState(false)
+  const [msgEdit, setMsgEdit] = useState(false);
   return (
     <>
     <div className="app-container">
@@ -41,7 +42,9 @@ function App() {
           isChannelEditOpen,
           setIsChannelEditOpen,
           isServerEditOpen,
-          setIsServerEditOpen
+          setIsServerEditOpen,
+          msgEdit,
+          setMsgEdit
         }}>
         <UserControls />
         <ServerNav />

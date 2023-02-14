@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { addMessage, fetchMessages, removeMessage } from "../../../store/message";
@@ -10,6 +10,8 @@ import consumer from "../../consumer";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { deleteMessage } from "../../../store/message";
 import EditIcon from '@mui/icons-material/Edit';
+import { ModalContext } from "../../../App";
+import MessageEditForm from "./MessageEditForm";
 
 
 const useChatScroll = (dep) => {
@@ -26,7 +28,11 @@ const ChannelShowPage = () => {
     const {serverId, channelId} = useParams();
     const channel = useSelector((store) => store.channels[channelId]);
     const messages = useSelector((store) => store.messages);
-    const sessionUser = useSelector((store) => store.session.user)
+    const sessionUser = useSelector((store) => store.session.user);
+    const [msgcrudActive, setMsgcrudActive] = useState(false);
+    const { msgEdit, setMsgEdit} = useContext(ModalContext)
+    const hidden = { opacity: 0 };
+    const active = { opacity: 1 };
     const dispatch = useDispatch();
     const ref = useChatScroll(messages);
     const server = useSelector((store) => store.servers[serverId]);
@@ -84,11 +90,12 @@ const ChannelShowPage = () => {
         return dispatch(deleteMessage(serverId, channelId, messageId))
     }
 
+
     const MessageUpdateDelete = (message) => {
         if(message.author_id === sessionUser.id){
             return(
                 <div className="message-ud">
-                    <div className="message-edit-button"><EditIcon /></div>
+                    <div className="message-edit-button" onClick={() => {setMsgEdit(true)}}><EditIcon /></div>
                     <div className="message-delete-button" onClick={()=>handleMessageDelete(message.id)}><DeleteForeverIcon /></div>
                 </div>
             )
@@ -120,9 +127,14 @@ const ChannelShowPage = () => {
                                                 <div className="message-username">{message?.author?.username}</div>
                                                 <div className="message-date">{formatMessageDate(message?.created_at)}</div>
                                             </div>
-                                            <div className="message-content">
-                                                {message.content}
-                                            </div>
+                                            {msgEdit ? (
+                                                <MessageEditForm message={message}/>
+                                                ) : (
+                                                    <div className="message-content">
+                                                        {message.content}
+                                                    </div>
+                                                )
+                                            } 
                                         </div>
                                     </div>
                                     {MessageUpdateDelete(message)}

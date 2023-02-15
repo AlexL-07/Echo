@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { ModalContext } from "../../../../App";
 import { updateMessage } from "../../../../store/message";
 
-const MessageEditForm = (message) => {
+const MessageEditForm = ({message}) => {
     const [body, setBody] = useState(message.content);
     const {serverId, channelId} = useParams();
     const dispatch = useDispatch();
@@ -14,12 +14,14 @@ const MessageEditForm = (message) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(newMessage)
         dispatch(updateMessage(serverId, channelId, newMessage));
+        setMsgEdit(false);
     }
     const handleCloseEdit = (e) => {
         if (e.keyCode === 27) {
           setMsgEdit(false);
-          setMsgInput(message.body);
+          setBody(message.body);
         }
       };
 

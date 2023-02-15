@@ -12,6 +12,7 @@ import { deleteMessage } from "../../../store/message";
 import EditIcon from '@mui/icons-material/Edit';
 import { ModalContext } from "../../../App";
 import MessageEditForm from "./MessageEditForm";
+import MessageItem from "./MessageItem";
 
 
 const useChatScroll = (dep) => {
@@ -29,10 +30,6 @@ const ChannelShowPage = () => {
     const channel = useSelector((store) => store.channels[channelId]);
     const messages = useSelector((store) => store.messages);
     const sessionUser = useSelector((store) => store.session.user);
-    const [msgcrudActive, setMsgcrudActive] = useState(false);
-    const { msgEdit, setMsgEdit} = useContext(ModalContext)
-    const hidden = { opacity: 0 };
-    const active = { opacity: 1 };
     const dispatch = useDispatch();
     const ref = useChatScroll(messages);
     const server = useSelector((store) => store.servers[serverId]);
@@ -62,91 +59,6 @@ const ChannelShowPage = () => {
         return () => subscription?.unsubscribe();
     }, [channelId, dispatch])
 
-    const formatMessageDate = (timestamp) => {
-        let dateObj = new Date(timestamp);
-        let date = dateObj.getDate();
-        let month = dateObj.getMonth() + 1;
-        let year = dateObj.getFullYear();
-        let hours = dateObj.getHours();
-        let minutes = dateObj.getMinutes();
-        let meridiem = "AM";
-        if (date < 10) {
-          date = "0" + date;
-        }
-        if (month < 10) {
-          month = "0" + month;
-        }
-        if (minutes < 10) {
-          minutes = "0" + minutes;
-        }
-        if (hours > 12) {
-          hours %= 12;
-          meridiem = "PM";
-        }
-        return `${month}/${date}/${year} ${hours}:${minutes} ${meridiem}`;
-      };
-
-    const handleMessageDelete = (messageId) => {
-        return dispatch(deleteMessage(serverId, channelId, messageId))
-    }
-
-
-    const MessageUpdateDelete = (message) => {
-        if(message.author_id === sessionUser.id){
-            return(
-                <div className="message-ud">
-                    <div className="message-edit-button" onClick={() => {setMsgEdit(true)}}><EditIcon /></div>
-                    <div className="message-delete-button" onClick={()=>handleMessageDelete(message.id)}><DeleteForeverIcon /></div>
-                </div>
-            )
-        } else if(sessionUser.id  === server.owner_id){
-            return(
-                <div className="message-ud">
-                    <p><DeleteForeverIcon /></p>
-                </div>
-            )
-        } else {
-            return null
-        }
-    }
-
-    const MessageFormat = () => {
-        return (
-            <div className="messages-body">
-                <ul className="message-body-scroll">
-                    {
-                        Object.values(messages)?.map((message) => {
-                            return (
-                                <li className="channel-message" key={message?.id}>
-                                    <div className="message-body-container">
-                                        <div className="user-circle" id={message?.author?.status?.toLowerCase()}>
-                                            <img src={logo} alt="logo-icon" className="logo-icon"/>
-                                        </div>
-                                        <div className="message-container">
-                                            <div className="message-info">
-                                                <div className="message-username">{message?.author?.username}</div>
-                                                <div className="message-date">{formatMessageDate(message?.created_at)}</div>
-                                            </div>
-                                            {msgEdit ? (
-                                                <MessageEditForm message={message}/>
-                                                ) : (
-                                                    <div className="message-content">
-                                                        {message.content}
-                                                    </div>
-                                                )
-                                            } 
-                                        </div>
-                                    </div>
-                                    {MessageUpdateDelete(message)}
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-
-            </div>
-        )
-    }
 
     return (
         <>
@@ -157,7 +69,16 @@ const ChannelShowPage = () => {
                     <p>{`This is the start of the #${channel?.name} channel.`}</p>
                 </div>
                 <div className="channel-message-index">
-                    <MessageFormat />
+                    {/* <MessageFormat /> */}
+                    <div className="messages-body">
+                        <ul className="message-body-scroll">
+                            { 
+                                Object.values(messages)?.map((message) => (
+                                    <MessageItem message = {message}/>
+                                ))
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div className="channel-message-form-container">
@@ -169,7 +90,3 @@ const ChannelShowPage = () => {
 }
 
 export default ChannelShowPage
-
-// {Object.values(messages)?.map((message) => (
-//     <p className="message-content" id={message.id}>{message.content}</p>
-// ))}

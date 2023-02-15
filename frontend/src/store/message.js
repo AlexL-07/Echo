@@ -43,10 +43,6 @@ export const updateMessage = (serverId, channelId, messageData) => async dispatc
         method: "PATCH",
         body: JSON.stringify(messageData)
     });
-    if(res.ok){
-        const data = res.json();
-        dispatch(addMessage(data))
-    }
 }
 
 export const deleteMessage = (serverId, channelId, messageId) => async dispatch =>{

@@ -40,16 +40,11 @@ class Api::MessagesController < ApplicationController
 
     def destroy
         @message = Message.find_by(id: params[:id])
-        @server = Server.find(id: params[:server_id])
-        if @message.author_id == current_user.id || current_user.id == @server.owner_id
-            if @message.destroy
-                ChannelsChannel.broadcast_to @message.channel,
-                    type: 'DESTROY_MESSAGE',
-                    id: @message.id
-                render json: nil, status: :ok
-            else 
-                render json: { errors: @message.errors.full_messages }, status: 422
-            end
+        if @message.destroy 
+            ChannelsChannel.broadcast_to @message.channel,
+                type: 'DESTROY_MESSAGE',
+                id: @message.id
+            render json: nil, status: :ok
         else
             render json: { errors: ["Only the sender and the owner can delete this message."] }, status: 422
         end

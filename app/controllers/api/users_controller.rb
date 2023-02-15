@@ -30,10 +30,12 @@ class Api::UsersController < ApplicationController
     def update 
       @user = User.find_by(id: params[:id])
       if @user.update(user_params)
-        ServersChannel.broadcast_to @server,
-          type: 'UPDATE_USER',
-          **from_template('api/users/wbs', user: @user)
-        render json: nil, status: :ok
+        @user.servers.each do |server| 
+          ServersChannel.broadcast_to server,
+            type: 'UPDATE_USER',
+            **from_template('api/users/wbs', user: @user)
+        end
+        render :show
       else 
         render json: {errors: @user.errors.full_messages}, status: 422
       end

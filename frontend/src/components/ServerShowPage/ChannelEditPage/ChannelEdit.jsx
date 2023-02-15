@@ -14,7 +14,7 @@ const ChannelEdit = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(updateChannel(editedChannel))
+        dispatch(updateChannel(editedChannel));
         setIsChannelEditOpen(false);
         setChannelName("")
     }

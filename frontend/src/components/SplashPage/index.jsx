@@ -32,9 +32,7 @@ const SplashPage = () => {
         <>
         <div className='splash-page-main'>
             <div className="splash-page-banner">
-                <div className='navigation-bar'>
-                    <Navigation />
-                </div>
+                <Navigation />
                 <div className='under-nav-bar'>
                 <h1 className="homepage-main-heading">IMAGINE A PLACE...</h1>
                     <p>

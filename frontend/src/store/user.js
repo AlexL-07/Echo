@@ -43,7 +43,7 @@ export const updateUser = (userData) => async (dispatch) => {
     });
     if(res.ok){
         const data = await res.json();
-        dispatch(addUser(data))
+        dispatch(addUser(data.user))
     }
 }
 

@@ -49,6 +49,9 @@ export const deleteMessage = (serverId, channelId, messageId) => async dispatch 
     const res = await csrfFetch(`/api/servers/${serverId}/channels/${channelId}/messages/${messageId}`,{
         method: "DELETE"
     });
+    if(res.ok){
+        dispatch(removeMessage(messageId))
+    }
 }
 
 const messageReducer = (state = {}, action) => {

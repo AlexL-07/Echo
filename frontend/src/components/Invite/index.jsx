@@ -10,10 +10,13 @@ const Invite = () => {
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(fetchServerWithInvite(inviteKey))
-            .then((server) => {
-                history.push(`/servers/${server.id}`)
-            })
+        const pendingInvite = setTimeout(() => {
+            dispatch(fetchServerWithInvite(inviteKey))
+                .then((server) => {
+                    history.push(`/servers/${server.id}/channels/${server.defaultChannel.id}`)
+                })
+        }, 1000)
+        return () => clearTimeout(pendingInvite);
     }, [])
 
     return <></>;

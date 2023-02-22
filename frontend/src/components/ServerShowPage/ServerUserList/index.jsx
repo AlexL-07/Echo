@@ -6,6 +6,7 @@ import consumer from "../../consumer"
 import { useEffect } from "react"
 import { fetchServer } from "../../../store/server"
 import { addUser, fetchUsers, removeUser } from "../../../store/user"
+import { fetchFriendships } from "../../../store/friendship"
 // 
 
 
@@ -15,6 +16,14 @@ const ServerUserList = () => {
     const server = useSelector((store)=> store.servers[serverId])
     const sessionUser = useSelector((store) => store.session.user)
     const users = useSelector((store) => store.users)
+    const friendships = useSelector((store) => Object.values(store.friendships))
+    const friends = friendships
+    .filter((el) => el.status !== "Blocked" && el.status !== "Pending")
+    .map((el) => el.friend);
+    const blockedIds = friendships
+      .filter((el) => el.status === "Blocked")
+      .map((el) => el.friend.id);
+    let friendIds = friendships.map((el) => el.friend.id);
     const onlineUsers = [];
     const idleUsers = [];
     const dndUsers = [];
@@ -44,6 +53,12 @@ const ServerUserList = () => {
         )
         return () => subscription?.unsubscribe();
     }, [dispatch, serverId])
+
+    useEffect(() => {
+        if(sessionUser){
+            dispatch(fetchFriendships())
+        }
+    },[dispatch])
     
     if(server){Object.values(users).forEach((user) => {
         if(user.status === "Online"){

@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import { fetchServer } from "../../../store/server"
 import { addUser, fetchUsers, removeUser } from "../../../store/user"
 import { fetchFriendships } from "../../../store/friendship"
+import UserItem from "./UserItem"
 // 
 
 
@@ -77,55 +78,75 @@ const ServerUserList = () => {
             <p className="top-user-text">ONLINE</p>
             <ul className="server-user-list">
                 {onlineUsers.map((user)=>(
-                    <div className="user-list-item">
-                        <li key={user.id} className="user-item" >
-                            <div className="user-circle-container">
-                            <div className="user-circle online" id="online">
-                                <img src={logo} alt="logo-icon" className="logo-icon"/>
-                            </div>
-                            </div>
-                                <p className="user-text">{user.username}</p>
-                        </li>
-                    </div>
+                    // <div className="user-list-item">
+                    //     <li key={user.id} className="user-item" >
+                    //         <div className="user-circle-container">
+                    //         <div className="user-circle online" id="online">
+                    //             <img src={logo} alt="logo-icon" className="logo-icon"/>
+                    //         </div>
+                    //         </div>
+                    //             <p className="user-text">{user.username}</p>
+                    //     </li>
+                    // </div>
+                    <UserItem 
+                        user={user}
+                        friendIds={friendIds}
+                        friendships={friendships}
+                        blockedIds={blockedIds} />
                 ))}
             </ul>
             <p>IDLE</p>
             <ul className="server-user-list idle">
                 {idleUsers.map((user)=>(
-                    <div className="user-list-item">
-                    <li key={user.id} className="user-item" >
-                        <div className="user-circle idle" id= "idle">
-                            <img src={logo} alt="logo" className="logo-icon idle"/>
-                        </div>
-                        <p className="user-text idle">{user.username}</p>
-                    </li>
-                    </div>
+                    // <div className="user-list-item">
+                    // <li key={user.id} className="user-item" >
+                    //     <div className="user-circle idle" id= "idle">
+                    //         <img src={logo} alt="logo" className="logo-icon idle"/>
+                    //     </div>
+                    //     <p className="user-text idle">{user.username}</p>
+                    // </li>
+                    // </div>
+                    <UserItem 
+                        user={user}
+                        friendIds={friendIds}
+                        friendships={friendships}
+                        blockedIds={blockedIds} />
                 ))}
             </ul>
             <p>DO NOT DISTURB</p>
             <ul className="server-user-list dnd">
                 {dndUsers.map((user)=>(
-                    <div className="user-list-item">
-                    <li key={user.id} className="user-item" >
-                        <div className="user-circle dnd" id="dnd">
-                            <img src={logo} alt="logo" className="logo-icon dnd"/>
-                        </div>
-                        <p className="user-text dnd">{user.username}</p>
-                    </li>
-                    </div>
+                    // <div className="user-list-item">
+                    // <li key={user.id} className="user-item" >
+                    //     <div className="user-circle dnd" id="dnd">
+                    //         <img src={logo} alt="logo" className="logo-icon dnd"/>
+                    //     </div>
+                    //     <p className="user-text dnd">{user.username}</p>
+                    // </li>
+                    // </div>
+                    <UserItem 
+                        user={user}
+                        friendIds={friendIds}
+                        friendships={friendships}
+                        blockedIds={blockedIds} />
                 ))}
             </ul>
             <p>OFFLINE</p>
             <ul className="server-user-list offline">
                 {offlineUsers.map((user)=>(
-                    <div className="user-list-item">
-                    <li key={user.id} className="user-item" >
-                        <div className="user-circle offline" id="offline">
-                            <img src={logo} alt="logo" className="logo-icon offline"/>
-                        </div>
-                        <p className="user-text offline">{user.username}</p>
-                    </li>
-                    </div>
+                    // <div className="user-list-item">
+                    // <li key={user.id} className="user-item" >
+                    //     <div className="user-circle offline" id="offline">
+                    //         <img src={logo} alt="logo" className="logo-icon offline"/>
+                    //     </div>
+                    //     <p className="user-text offline">{user.username}</p>
+                    // </li>
+                    // </div>
+                    <UserItem 
+                        user={user}
+                        friendIds={friendIds}
+                        friendships={friendships}
+                        blockedIds={blockedIds} />
                 ))}
             </ul>
         </div>

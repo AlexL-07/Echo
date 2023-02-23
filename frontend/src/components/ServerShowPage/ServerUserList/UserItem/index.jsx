@@ -2,10 +2,18 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import BlockIcon from '@mui/icons-material/Block';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import logo from "../../../../assets/logo_white.png"
+import { createFriendship } from '../../../../store/friendship';
 
 const UserItem = ({ user, friendIds, friendships, blockedIds }) => {
-    const sessionUser = useSelector((store) => store.session.user)
+    const sessionUser = useSelector((store) => store.session.user);
+    const dispatch = useDispatch();
+
+    const handleAddFriend = () => {
+        const friendshipData = { user_id: sessionUser.id, friend_id: user.id};
+        dispatch(createFriendship(friendshipData))
+    }
 
     const friendShipButtons = () => {
         if(user.id === sessionUser.id){
@@ -34,7 +42,7 @@ const UserItem = ({ user, friendIds, friendships, blockedIds }) => {
                 return(
                     <>
                         <div className='friendship-buttons'>
-                            <PersonAddIcon />
+                            <PersonAddIcon onClick={handleAddFriend}/>
                             <BlockIcon />
                         </div>
                     </>
@@ -54,7 +62,7 @@ const UserItem = ({ user, friendIds, friendships, blockedIds }) => {
                             <img src={logo} alt="logo-icon" className="logo-icon"/>
                         </div>
                     </div>
-                        <p className="user-text">{user.username.toLowerCase()}</p>
+                        <p className="user-text">{user.username}</p>
                 </li>
             </div>
         )

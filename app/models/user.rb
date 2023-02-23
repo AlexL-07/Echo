@@ -64,6 +64,10 @@ class User < ApplicationRecord
         self.status = "Online"
     end
 
+    def friends
+        Friendship.where('user_id = ? OR friend_id = ?', self.id, self.id)
+    end
+
     private
     def ensure_session_token
         self.session_token ||= generate_unique_session_token

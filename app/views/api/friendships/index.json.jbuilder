@@ -1,6 +1,6 @@
 @friendships.each do |friendship|
     json.set! friendship.id do 
-        json.partial! "api/friendships/friendship", friendship: friendship
+        json.extract! friendship, :id, :created_at, :updated_at, :status
         if friendship.user_id == current_user.id
             json.friend do
                 json.extract! User.find(friendship.friend_id), :id, :username, :email, :status, :user_tag, :created_at

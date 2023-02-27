@@ -4,7 +4,7 @@ import BlockIcon from '@mui/icons-material/Block';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from "../../../../assets/logo_white.png"
-import { createFriendship } from '../../../../store/friendship';
+import { createFriendship, updateFriendship, deleteFriendship } from '../../../../store/friendship';
 
 const UserItem = ({ user, friendIds, friendships, blockedIds }) => {
     const sessionUser = useSelector((store) => store.session.user);
@@ -14,6 +14,25 @@ const UserItem = ({ user, friendIds, friendships, blockedIds }) => {
         const friendshipData = { user_id: sessionUser.id, friend_id: user.id};
         dispatch(createFriendship(friendshipData))
     }
+
+    const blockFriend = () => {
+        const friendship = friendships.find((el) => el.friend.id === user.id);
+        const friendshipData = { ...friendship, status: "Blocked" };
+        dispatch(updateFriendship(friendshipData))
+    }
+
+    const handleBlockUser = () => {
+        const friendshipData = { user_id: sessionUser.id, friend_id: user.id, status: "Blocked"};
+        dispatch(createFriendship(friendshipData))
+    }
+
+    const handleDelete = () => {
+        const friendshipId = friendships.find(
+            (el) => el.friend.id === user.id
+          ).id;
+        dispatch(deleteFriendship(friendshipId))
+    }
+
 
     const friendShipButtons = () => {
         if(user.id === sessionUser.id){
@@ -25,8 +44,8 @@ const UserItem = ({ user, friendIds, friendships, blockedIds }) => {
                 return(
                     <>
                         <div className='friendship-buttons'>
-                            <PersonRemoveIcon />
-                            <BlockIcon />
+                            <PersonRemoveIcon onClick={handleDelete}/>
+                            <BlockIcon onClick={blockFriend}/>
                         </div>
                     </>
                 )
@@ -34,7 +53,7 @@ const UserItem = ({ user, friendIds, friendships, blockedIds }) => {
                 return(
                     <>
                         <div className='friendship-buttons'>
-                            <TaskAltIcon />
+                            <TaskAltIcon onClick={handleDelete}/>
                         </div>
                     </>
                 )
@@ -43,7 +62,7 @@ const UserItem = ({ user, friendIds, friendships, blockedIds }) => {
                     <>
                         <div className='friendship-buttons'>
                             <PersonAddIcon onClick={handleAddFriend}/>
-                            <BlockIcon />
+                            <BlockIcon onClick={handleBlockUser}/>
                         </div>
                     </>
                 )

@@ -30,15 +30,21 @@ export const fetchFriendships = () => async dispatch => {
   }
 };
 
-export const createFriendship = (friendshipData) => async dispatch => {
-  const res = await csrfFetch("/api/friendships", {
+// export const createFriendship = (friendshipData) => async dispatch => {
+//   const res = await csrfFetch("/api/friendships", {
+//     method: "POST",
+//     body: JSON.stringify(friendshipData)
+//   });
+//   // if (res.ok){
+//   //   const friendship = await res.json();
+//   //   dispatch(addFriendship(friendship))
+//   // }
+// };
+export const createFriendship = (friendshipData) => {
+  csrfFetch("/api/friendships", {
     method: "POST",
     body: JSON.stringify(friendshipData)
   });
-  // if (res.ok){
-  //   const friendship = await res.json();
-  //   dispatch(addFriendship(friendship))
-  // }
 };
 
 export const updateFriendship = (friendshipData) => {

@@ -24,7 +24,7 @@ const ServerUserList = () => {
     const blockedIds = friendships
       .filter((el) => el.status === "Blocked")
       .map((el) => el.friend.id);
-    let friendIds = friendships.map((el) => el.friend.id);
+    let friendIds = friends.map((el) => el.friend.id);
     const onlineUsers = [];
     const idleUsers = [];
     const dndUsers = [];

@@ -17,9 +17,16 @@ Rails.application.routes.draw do
     resources :channels, only: [:show] do
       resources :messages, only: [:create]
     end
+
+    resources :dm_channels, only: [:index, :create, :update, :destroy, :show] do
+      resources :direct_messages, only: [:index, :create]
+    end
+
+    resources :direct_messages, only: [:show, :destroy, :update]
     resources :messages, only: [:show]
     resources :friendships, only: [:create, :destroy, :update, :index]
     resources :server_memberships, only: [:create, :destroy]
+    resources :dm_channel_memberships, only: [:create, :update, :destroy]
 
     
     get "/public_servers", to: "servers#public_servers"

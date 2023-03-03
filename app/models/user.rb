@@ -42,6 +42,27 @@ class User < ApplicationRecord
         class_name: :Message,
         foreign_key: :author_id,
         primary_key: :id
+    
+    has_many :owned_dm_channels
+        class_name: :DMChannel,
+        foreign_key: :owner_id,
+        primary_key: :id
+
+    has_many :dm_channel_memberships,
+        class_name: :DMMembership,
+        foreign_key: :user_id,
+        primary_key: :id,
+        dependent: :destroy
+    
+    has_many :dm_channels,
+        through: :dm_channel_memberships,
+        source: :dm_channel,
+        dependent: :destroy
+
+    has_many :direct_messages,
+        class_name: :DirectMessage,
+        foreign_key: :author_id,
+        primary_key: :id
 
     def self.find_by_credentials(credential, password)
         if credential.include?("@")

@@ -48,6 +48,15 @@ const MessageItem = ({message}) => {
         return dispatch(deleteMessage(serverId, channelId, messageId))
     }
 
+    const authorStatus = () => {
+      if(message.author.status === "Do Not Disturb"){
+        return ("dnd");
+    } else {
+        console.log(message.author)
+        return (message.author.status.toLowerCase())
+    }
+    }
+
     const formatMessageDate = (timestamp) => {
         let dateObj = new Date(timestamp);
         let date = dateObj.getDate();
@@ -76,7 +85,7 @@ const MessageItem = ({message}) => {
         <>
         <li className="channel-message" key={message?.id}>
             <div className="message-body-container">
-                <div className="user-circle" id={message?.author?.status?.toLowerCase()}>
+                <div className="user-circle" id={authorStatus()}>
                     <img src={logo} alt="logo-icon" className="logo-icon"/>
                 </div>
                 <div className="message-container">

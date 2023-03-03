@@ -13,15 +13,15 @@ import { ModalContext } from "../../App";
 const UserControls = () => {
     const sessionUser = useSelector((store) => store.session.user)
     const users = useSelector((store) => store.users)
-    const user = users[sessionUser.id]
+    const user = useSelector((store) => store.users[sessionUser.id])
     const location = useLocation()
     const {setIsUserOpen} = useContext(ModalContext)
-
+    
     const userStatus = () => {
-        if(user.status === "Do Not Disturb"){
+        if(user?.status === "Do Not Disturb"){
             return ("dnd");
         } else {
-            return (user.status.toLowerCase())
+            return (user?.status.toLowerCase())
         }
     }
 

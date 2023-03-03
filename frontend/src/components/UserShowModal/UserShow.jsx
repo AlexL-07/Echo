@@ -14,6 +14,8 @@ const UserShow = () => {
     const {setIsStatusOpen} = useContext(ModalContext)
     const dispatch = useDispatch()
     const sessionUser = useSelector((store) => store.session.user)
+    const users = useSelector((store) => store.users)
+    const user = users[sessionUser.id]
     // const currentUser = useSelector((store) => store.users[sessionUser.id])
     
     // useEffect(()=>{
@@ -78,7 +80,7 @@ const UserShow = () => {
                 <div className="user-info-body">
                     <div className="username-usertag">
                         <h3>{sessionUser.username}</h3>
-                        <h3 className="user-tag">#{sessionUser.user_tag}</h3>
+                        <h3 className="user-tag">#{user.user_tag}</h3>
                     </div>
                     <div className="divider2"></div>
                     <div className="member-since">
@@ -87,7 +89,7 @@ const UserShow = () => {
                     </div>
                     <div className="divider2"></div>
                     <div className="status-form-container" onMouseOver={()=>setIsStatusOpen(true)}>
-                        {statusDisplay(sessionUser.status)}
+                        {statusDisplay(user.status)}
                     </div>
                     <div className="divider2"></div>
                     <div className="signout-container" onClick={()=>dispatch(logout())}>

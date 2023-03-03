@@ -13,18 +13,26 @@ import { ModalContext } from "../../App";
 const UserControls = () => {
     const sessionUser = useSelector((store) => store.session.user)
     const users = useSelector((store) => store.users)
+    const user = users[sessionUser.id]
     const location = useLocation()
     const {setIsUserOpen} = useContext(ModalContext)
+
+    const userStatus = () => {
+        if(user.status === "Do Not Disturb"){
+            return ("dnd");
+        } else {
+            return (user.status.toLowerCase())
+        }
+    }
 
 
     if (location.pathname === '/' || location.pathname === '/error' || !sessionUser){
         return null
     } else {
-        const user = users[sessionUser.id]
         return (
             <div className="user-controls-container">
                 <div className="user-button" onClick={()=>{setIsUserOpen(true)}}>
-                    <div className="user-circle" id={user?.status.toLowerCase()}>
+                    <div className="user-circle" id={userStatus()}>
                         <img src={logo} alt="logo-icon" className="logo-icon"/>
                     </div>
                     <div className="user-information">

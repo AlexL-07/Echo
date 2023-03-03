@@ -5,8 +5,8 @@ class Api::FriendshipsController < ApplicationController
         if @friendship.save
             @user1 = User.find(@friendship.user_id)
             @user2 = User.find(@friendship.friend_id)
-            FriendshipsChannel.broadcast_to(@user1, type: 'RECEIVE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: current_user))
-            FriendshipsChannel.broadcast_to(@user2, type: 'RECEIVE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: current_user))
+            FriendshipsChannel.broadcast_to(@user1, type: 'RECEIVE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: @user2))
+            FriendshipsChannel.broadcast_to(@user2, type: 'RECEIVE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: @user1))
             render json: nil, status: :ok
         else
             render json: { errors: @friendship.errors.full_messages }, status: :unprocessable_entity 

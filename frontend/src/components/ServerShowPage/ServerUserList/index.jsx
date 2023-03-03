@@ -6,7 +6,7 @@ import consumer from "../../consumer"
 import { useEffect } from "react"
 import { fetchServer } from "../../../store/server"
 import { addUser, fetchUsers, removeUser } from "../../../store/user"
-import { fetchFriendships } from "../../../store/friendship"
+import { fetchFriendships, addFriendship, removeFriendship } from "../../../store/friendship"
 import UserItem from "./UserItem"
 // 
 
@@ -16,19 +16,49 @@ const ServerUserList = () => {
     const dispatch = useDispatch()
     const server = useSelector((store)=> store.servers[serverId])
     const sessionUser = useSelector((store) => store.session.user)
+    const sessionUserId = sessionUser?.id;
     const users = useSelector((store) => store.users)
     const friendships = useSelector((store) => Object.values(store.friendships))
     const friends = friendships
-    .filter((el) => el.status !== "Blocked" && el.status !== "Pending")
+    // .filter((el) => el.status !== "Blocked" && el.status !== "Pending")
+    .filter((el) => el.status === "Accepted")
     .map((el) => el.friend);
     const blockedIds = friendships
       .filter((el) => el.status === "Blocked")
       .map((el) => el.friend.id);
-    let friendIds = friends.map((el) => el.friend.id);
+    let friendIds = friends.map((el) => el.id);
+    const pendingIds = friendships
+        .filter((el) => el.status === "Pending")
+        .map((el) => el.friend.id)
     const onlineUsers = [];
     const idleUsers = [];
     const dndUsers = [];
     const offlineUsers = [];
+
+    useEffect(() => {
+        const subscription = consumer.subscriptions.create(
+          { channel: "FriendshipsChannel", id: sessionUserId },
+          {
+            received: (friendshipObj) => {
+              switch (friendshipObj.type) {
+                case "RECEIVE_FRIENDSHIP":
+                  dispatch(addFriendship(friendshipObj));
+                  break;
+                case "DESTROY_FRIENDSHIP":
+                  dispatch(removeFriendship(friendshipObj.id));
+                  break;
+                case "UPDATE_FRIENDSHIP":
+                  dispatch(addFriendship(friendshipObj));
+                  break;
+                default:
+                  console.log("Unhandled broadcast: ", friendshipObj.type);
+                  break;
+              }
+            },
+          }
+        );
+        return () => subscription?.unsubscribe();
+      }, [sessionUserId, dispatch]);
 
     useEffect(() => {
         const subscription = consumer.subscriptions.create(
@@ -92,7 +122,8 @@ const ServerUserList = () => {
                         user={user}
                         friendIds={friendIds}
                         friendships={friendships}
-                        blockedIds={blockedIds} />
+                        blockedIds={blockedIds}
+                        pendingIds={pendingIds} />
                 ))}
             </ul>
             <p>IDLE</p>
@@ -110,7 +141,8 @@ const ServerUserList = () => {
                         user={user}
                         friendIds={friendIds}
                         friendships={friendships}
-                        blockedIds={blockedIds} />
+                        blockedIds={blockedIds}
+                        pendingIds={pendingIds} />
                 ))}
             </ul>
             <p>DO NOT DISTURB</p>
@@ -128,7 +160,8 @@ const ServerUserList = () => {
                         user={user}
                         friendIds={friendIds}
                         friendships={friendships}
-                        blockedIds={blockedIds} />
+                        blockedIds={blockedIds}
+                        pendingIds={pendingIds} />
                 ))}
             </ul>
             <p>OFFLINE</p>
@@ -146,7 +179,8 @@ const ServerUserList = () => {
                         user={user}
                         friendIds={friendIds}
                         friendships={friendships}
-                        blockedIds={blockedIds} />
+                        blockedIds={blockedIds}
+                        pendingIds={pendingIds} />
                 ))}
             </ul>
         </div>

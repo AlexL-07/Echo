@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useLocation } from "react-router-dom";
+import { Redirect, useLocation, useParams } from "react-router-dom";
 import React, {useState, useEffect} from "react";
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import FriendsPage from "./FriendsPage";
@@ -11,21 +11,22 @@ import ServerFormPage from "../ServerNav/ServerFormPage"
 
 
 const UserHomePage = () => {
-    // const dispatch = useDispatch()
-    const sessionUser = useSelector(state => state.session.user)
-    // const friendships = useSelector((store) => Object.values(store.friendships))
-    // const friends = friendships
-    //     .filter((el) => el.status !== "blocked" && el.status !== "pending")
-    //     .map((el) => el.friend);
-    // const blockedUsers = friendships
-    //     .filter((el) => el.status === "blocked")
-    //     .map((el) => el.friend);
-    // let friendIds = friendships.map((el) => el.friend.id);
-    // const [friendTab, setFriendTab] = useState("Online")
+    const dispatch = useDispatch();
+    const { channelId } = useParams();
+    const sessionUser = useSelector((store) => store.session.user);
+    const channel = useSelector((store) => store.channels[channelId]);
+    const friendships = useSelector((store) => Object.values(store.friendships));
+    const friends = friendships.map((el) => ({
+        friend: el.friend,
+        status: el.status,
+        friendshipId: el.id,
+        dmChannelId: el.dmChannelId
+    }));
+    const notiCount = friends.filter(
+        (el) => el.status === "Pending" && !el.friend.user_id
+    ).length;
+    const [friendTab, setFriendTab] = useState("online");
 
-    // useEffect(() => {
-    //     dispatch(fetchFriendships());
-    // }, [dispatch])
 
     
     if (!sessionUser) {return <Redirect to='/'/>}
@@ -45,16 +46,41 @@ const UserHomePage = () => {
                         <p>Friends</p>
                     </div>
                     <div className="user-button-online">
-                        <button className="user-friend-button">Online</button>
+                        <button className="user-friend-button" 
+                        id={
+                        friendTab === "online"
+                          ? "friend-option-active"
+                          : undefined
+                      }
+                      onClick={() => setFriendTab("online")}>Online</button>
                     </div>
                     <div className="user-button-all">
-                        <button className="user-friend-button">All</button>
+                        <button className="user-friend-button"
+                        id={
+                            friendTab === "all" ? "friend-option-active" : undefined
+                          }
+                          onClick={() => setFriendTab("all")}>All</button>
                     </div>
                     <div className="user-button-pending">
-                        <button className="user-friend-button">Pending</button>
+                        <button className="user-friend-button"
+                        id={
+                            friendTab === "pending"
+                              ? "friend-option-active"
+                              : undefined
+                          }
+                          onClick={() => setFriendTab("pending")}>Pending
+                          {!!notiCount && (
+                            <span className="noti-count">{notiCount}</span>)}
+                          </button>
                     </div>
                     <div className="user-blocked-button">
-                        <button className="user-friend-button">Blocked</button>
+                        <button className="user-friend-button"
+                        id={
+                            friendTab === "blocked"
+                              ? "friend-option-active"
+                              : undefined
+                          }
+                          onClick={() => setFriendTab("blocked")}>Blocked</button>
                     </div>
                 </div>
             </div>
@@ -63,12 +89,17 @@ const UserHomePage = () => {
                     <p>Direct Messages</p>
                 </div>
                 <div className="user-home-right">
-                    {/* <FriendsPage 
-                        friendTab={friendTab}
-                        sessionUser={sessionUser}
-                        friendships={friendships}
-                        friends={friends}
-                    /> */}
+                {channelId ? (
+                //   <ChannelShowPage />
+                undefined
+                ) : (
+                  <FriendsPage
+                    friendTab={friendTab}
+                    sessionUser={sessionUser}
+                    friendships={friendships}
+                    friends={friends}
+                  />
+                )}
                 </div>
             </div>
         </div>

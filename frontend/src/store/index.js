@@ -6,6 +6,8 @@ import channelReducer from './channel';
 import messageReducer from './message';
 import userReducer from './user';
 import friendshipReducer from './friendship';
+import dmChannelReducer from './dm_channel';
+import directMessageReducer from './direct_message';
 
 let enhancer;
 export const rootReducer = combineReducers({
@@ -14,8 +16,9 @@ export const rootReducer = combineReducers({
     channels: channelReducer,
     messages: messageReducer,
     users: userReducer,
-    friendships: friendshipReducer
-
+    friendships: friendshipReducer,
+    dmChannels: dmChannelReducer,
+    directMessages: directMessageReducer
 })
 
 if (process.env.NODE_ENV === 'production') {

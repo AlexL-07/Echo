@@ -1,4 +1,4 @@
-class DMChannel < ApplicationRecord
+class DmChannel < ApplicationRecord
     validates :owner_id, :name, presence: true
 
     belongs_to :owner, 
@@ -7,7 +7,7 @@ class DMChannel < ApplicationRecord
         primary_key: :id
 
     has_many :dm_memberships,
-        class_name: :DMMembership,
+        class_name: :DmMembership,
         foreign_key: :dm_channel_id,
         primary_key: :id,
         dependent: :destroy

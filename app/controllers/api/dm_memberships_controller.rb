@@ -1,8 +1,8 @@
-class Api::DMMembershipsController < ApplicationController
-    wrap_parameters include: DMMembership.attribute_names
+class Api::DmMembershipsController < ApplicationController
+    wrap_parameters include: DmMembership.attribute_names
     def create
-        @dm_membership = DMMembership.new(dm_membership_params)
-        @dm_channel = DMChannel.find(params[:dm_membership][:dm_channel_id])
+        @dm_membership = DmMembership.new(dm_membership_params)
+        @dm_channel = DmChannel.find(params[:dm_membership][:dm_channel_id])
         if @dm_membership.save!
             render :show
         else
@@ -11,7 +11,7 @@ class Api::DMMembershipsController < ApplicationController
     end
 
     def destroy
-        @dm_membership = DMMembership.find_by(id: params[:id])
+        @dm_membership = DmMembership.find_by(id: params[:id])
         @user = current_user
         if @dm_membership.user_id == @user.id && @dm_membership.destroy
         else

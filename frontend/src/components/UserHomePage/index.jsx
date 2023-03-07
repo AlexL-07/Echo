@@ -8,13 +8,15 @@ import { fetchFriendships } from "../../store/friendship";
 import UserShowModal from "../UserShowModal"
 import StatusDropDown from "../UserShowModal/StatusDropDown"
 import ServerFormPage from "../ServerNav/ServerFormPage"
+import DMChannel from "./DMChannel";
+import { fetchDMChannels } from "../../store/dm_channel";
 
 
 const UserHomePage = () => {
     const dispatch = useDispatch();
-    const { channelId } = useParams();
+    const { dmChannelId } = useParams();
     const sessionUser = useSelector((store) => store.session.user);
-    const channel = useSelector((store) => store.channels[channelId]);
+    const channel = useSelector((store) => store.channels[dmChannelId]);
     const friendships = useSelector((store) => Object.values(store.friendships));
     const friends = friendships.map((el) => ({
         friend: el.friend,
@@ -26,6 +28,10 @@ const UserHomePage = () => {
         (el) => el.status === "Pending" && !el.friend.user_id
     ).length;
     const [friendTab, setFriendTab] = useState("online");
+
+    useEffect(() => {
+        dispatch(fetchDMChannels());
+    }, [])
 
 
     
@@ -89,9 +95,8 @@ const UserHomePage = () => {
                     <p>Direct Messages</p>
                 </div>
                 <div className="user-home-right">
-                {channelId ? (
-                //   <ChannelShowPage />
-                undefined
+                {dmChannelId ? (
+                    <DMChannel />
                 ) : (
                   <FriendsPage
                     friendTab={friendTab}

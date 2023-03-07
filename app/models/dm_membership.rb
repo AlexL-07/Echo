@@ -1,4 +1,4 @@
-class DMMembership < ApplicationRecord
+class DmMembership < ApplicationRecord
     validates :user_id, :dm_channel_id, presence: true
     validates :user_id, uniqueness: {scope: :dm_channel_id}
     

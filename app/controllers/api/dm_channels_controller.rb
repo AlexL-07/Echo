@@ -1,5 +1,5 @@
-class API::DMChannelsController < ApplicationController
-    wrap_parameters include: DMChannel.attribute_names
+class Api::DmChannelsController < ApplicationController
+    wrap_parameters include: DmChannel.attribute_names
 
     def index 
         @user = current_user
@@ -16,7 +16,7 @@ class API::DMChannelsController < ApplicationController
         @dm_channel = DMChannel.new(dm_channel_params)
         @dm_channel.owner_id = current_user.id
         if @dm_channel.save
-            @dm_channel_membership = DMMembership.create(user_id: current_user.id, dm_channel_id: @dm_channel.id)
+            @dm_channel_membership = DmMembership.create(user_id: current_user.id, dm_channel_id: @dm_channel.id)
             render :show
         else 
             render json: {errors: @dm_channel.errors.full_messages}, status: 422

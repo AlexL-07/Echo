@@ -1,5 +1,5 @@
 class Api::DirectMessagesController < ApplicationController
-    wrap_parameters include: Message.attribute_names
+    wrap_parameters include: DirectMessage.attribute_names
     def create
         @direct_message = DirectMessage.new(message_params)
         @dm_channel = DMChannel.find(params[:dm_channel_id])

@@ -5,7 +5,7 @@ json.users do
         json.set! user.id do
             json.partial! "api/users/user", user: user
             if dm_channel
-                json.membership_id DMMembership.find_by(user_id: user.id, dm_channel_id: dm_channel.id).id
+                json.membership_id DmMembership.find_by(user_id: user.id, dm_channel_id: dm_channel.id).id
             end
         end
     end

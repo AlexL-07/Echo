@@ -49,7 +49,7 @@ class User < ApplicationRecord
         primary_key: :id
 
     has_many :dm_channel_memberships,
-        class_name: :DMMembership,
+        class_name: :DmMembership,
         foreign_key: :user_id,
         primary_key: :id,
         dependent: :destroy

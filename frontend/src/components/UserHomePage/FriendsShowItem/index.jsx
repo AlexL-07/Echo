@@ -12,9 +12,6 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
     const friendshipReceiver = !!friend.friend_id;
     const friendship = friendships.find((el) => el.friend.id === friend.id)
     const [hovered, setHovered] = useState(false);
-    const [acceptHovered, setAcceptHovered] = useState(false);
-    const [ignoreHovered, setIgnoreHovered] = useState(false);
-    console.log(friendship)
 
     const handleAcceptInvite = (e) => {
         const friendship = friendships.find(

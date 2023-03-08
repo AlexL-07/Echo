@@ -38,10 +38,10 @@ const ChannelNav = () => {
                         </NavLink>
                     ))}
                 </ul>
-                <p className="top-channel-text">VOICE CHANNELS</p>
+                {/* <p className="top-channel-text">VOICE CHANNELS</p>
                 <ul className="channel-links-container voice">
                     <li className="channel-name"><p><VolumeUpIcon fontSize="small"/> coming eventually</p></li>
-                </ul>
+                </ul> */}
             </nav>
         </div>
     )

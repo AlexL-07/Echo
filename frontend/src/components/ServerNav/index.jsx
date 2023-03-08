@@ -54,12 +54,12 @@ const ServerNav = () => {
                                         <h4 className="pop-text">Add Server</h4>
                                     </div>
                                 </li>
-                                <li className="server-circle green">
+                                {/* <li className="server-circle green">
                                     <p className="browse"><ExploreIcon /></p>
                                     <div className="pop-out">
                                         <h4 className="pop-text">Explore Public Servers</h4>
                                     </div>
-                                </li>
+                                </li> */}
                             </ul>
                         </nav>
                     </div>

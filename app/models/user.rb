@@ -44,7 +44,7 @@ class User < ApplicationRecord
         primary_key: :id
     
     has_many :owned_dm_channels,
-        class_name: :DMChannel,
+        class_name: :DmChannel,
         foreign_key: :owner_id,
         primary_key: :id
 

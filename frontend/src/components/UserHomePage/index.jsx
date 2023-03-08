@@ -10,13 +10,14 @@ import StatusDropDown from "../UserShowModal/StatusDropDown"
 import ServerFormPage from "../ServerNav/ServerFormPage"
 import DMChannel from "./DMChannel";
 import { fetchDMChannels } from "../../store/dm_channel";
+import ServerUserList from "../ServerShowPage/ServerUserList";
 
 
 const UserHomePage = () => {
-    const dispatch = useDispatch();
     const { dmChannelId } = useParams();
+    const dispatch = useDispatch();
     const sessionUser = useSelector((store) => store.session.user);
-    const channel = useSelector((store) => store.channels[dmChannelId]);
+    const dmChannel = useSelector((store) => store.dmChannels[dmChannelId]);
     const friendships = useSelector((store) => Object.values(store.friendships));
     const friends = friendships.map((el) => ({
         friend: el.friend,
@@ -24,14 +25,19 @@ const UserHomePage = () => {
         friendshipId: el.id,
         dmChannelId: el.dmChannelId
     }));
+
+    console.log(dmChannel)
+
     const notiCount = friends.filter(
         (el) => el.status === "Pending" && !el.friend.user_id
     ).length;
     const [friendTab, setFriendTab] = useState("online");
 
     useEffect(() => {
-        dispatch(fetchDMChannels());
-    }, [])
+        if(sessionUser){
+            dispatch(fetchDMChannels());
+        }
+    }, [dispatch])
 
 
     
@@ -47,6 +53,8 @@ const UserHomePage = () => {
                     <p>Hello {sessionUser.username}!</p>
                 </div>
                 <div className="user-home-right">
+                    {!dmChannelId ? 
+                    <>
                     <div className="friend-label">
                         <EmojiPeopleIcon />
                         <p>Friends</p>
@@ -88,11 +96,17 @@ const UserHomePage = () => {
                           }
                           onClick={() => setFriendTab("blocked")}>Blocked</button>
                     </div>
+                    </>
+                    : 
+                    <>
+                        <p>@{dmChannel?.dm_user.username}</p>
+                    </> }
                 </div>
             </div>
             <div className="user-main-home">
                 <div className="user-home-left">
                     <p>Direct Messages</p>
+                    <ServerUserList />
                 </div>
                 <div className="user-home-right">
                 {dmChannelId ? (

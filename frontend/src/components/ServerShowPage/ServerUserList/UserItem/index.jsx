@@ -8,10 +8,15 @@ import LockPersonIcon from '@mui/icons-material/LockPerson';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from "../../../../assets/logo_white.png";
 import { createFriendship, updateFriendship, deleteFriendship } from '../../../../store/friendship';
+import { useHistory, useParams } from 'react-router-dom';
 
 const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
+    const {serverId} = useParams();
     const sessionUser = useSelector((store) => store.session.user);
     const dispatch = useDispatch();
+    const history = useHistory();
+    const friendship = friendships.find((el) => el.friend.id === user.id)
+    console.log(friendship)
 
     const handleAddFriend = () => {
         const friendshipData = { user_id: sessionUser.id, friend_id: user.id};
@@ -113,7 +118,11 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
     } else {
         return(
             <div className="user-list-item">
-                <li key={user.id} className="user-item" >
+                <li key={user.id} className="user-item" onClick={()=>{
+                    if(!serverId && user.id !== sessionUser.id){
+                        history.push(`/channel/@me/${friendship.dm_channel_id}`)
+                    }
+                }}>
                     <div className='user-item-left'>
                         <div className="user-circle-container">
                             <div className="user-circle" id={user.status.toLowerCase()}>

@@ -2,7 +2,7 @@ class DirectMessage < ApplicationRecord
     validates :dm_channel_id, :author_id, :content, presence: true
     
     belongs_to :dm_channel,
-        class_name: :DMChannel,
+        class_name: :DmChannel,
         foreign_key: :dm_channel_id,
         primary_key: :id
 

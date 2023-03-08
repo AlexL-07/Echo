@@ -12,5 +12,8 @@
                 json.friend_id friendship.friend_id
             end
         end
+        if friendship.status == "Accepted"
+            json.dm_channel_id friendship.dm_channel.id
+        end
     end
 end 

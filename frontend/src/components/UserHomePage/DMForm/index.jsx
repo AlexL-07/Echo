@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { createDirectMessage } from "../../../store/direct_message";
 
-const DMForm = () => {
+const DMForm = ({dmChannel}) => {
     const [body, setBody] = useState("");
     const {dmChannelId}= useParams();
     const dispatch = useDispatch();
-    const dmChannel = useSelector((store) => store.dmChannels[dmChannelId])
+    // const dmChannel = useSelector((store) => store.dmChannels[dmChannelId])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,7 +23,7 @@ const DMForm = () => {
                     type="text"
                     value={body}
                     onChange={(e) => setBody(e.currentTarget.value)}
-                    placeholder={`Message #${dmChannel?.name}`}/>
+                    placeholder={`Message @${dmChannel?.dm_user.username}`}/>
             </form>
         </div>
     )

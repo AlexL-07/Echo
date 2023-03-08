@@ -27,6 +27,7 @@ const ServerShowPage = () => {
     const server = useSelector((store)=> store.servers[serverId])
     const channels = useSelector((store)=> store.channels)
     const channel = useSelector((store)=>store.channels[channelId])
+    const users = useSelector((store) => store.users)
     const [pause, setPause] = useState(true);
     const history = useHistory();
     
@@ -94,7 +95,7 @@ const ServerShowPage = () => {
                     </div>
                     
                     <div className="server-membersship">
-                        <ServerUserList />
+                        <ServerUserList users={users}/>
                     </div>
                 </div>
             </div>

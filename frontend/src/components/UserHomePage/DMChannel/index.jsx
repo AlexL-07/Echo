@@ -23,7 +23,7 @@ const useChatScroll = (dep) => {
 
 const DMChannel = () => {
     const {dmChannelId} = useParams();
-    const channel = useSelector((store) => store.dmChannels[dmChannelId]);
+    const dmChannel = useSelector((store) => store.dmChannels[dmChannelId]);
     const messages = useSelector((store) => store.directMessages);
     const dispatch = useDispatch();
     const ref = useChatScroll(messages);
@@ -31,7 +31,7 @@ const DMChannel = () => {
     useEffect(() => {
         dispatch(fetchDirectMessages(dmChannelId));
         const subscription = consumer.subscriptions.create(
-            {channel: 'DMChannelsChannel', id: dmChannelId},
+            {channel: 'DmChannelsChannel', id: dmChannelId},
             {
                 received: (message) => {
                     switch(message.type) {
@@ -74,7 +74,8 @@ const DMChannel = () => {
                 </div>
             </div>
             <div className="channel-message-form-container">
-                <DMForm />
+                <DMForm 
+                    dmChannel={dmChannel}/>
             </div>
         </>
     )

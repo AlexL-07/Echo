@@ -15,8 +15,7 @@ class Api::FriendshipsController < ApplicationController
 
     def index
         if current_user
-            @user = current_user
-            @friendships = @user.friends
+            @friendships = current_user.friends
             render :index
         else 
             render json: { errors: ["No user is logged in"]}, status: 422
@@ -28,6 +27,13 @@ class Api::FriendshipsController < ApplicationController
         if @friendship.update(status_params)
             @user1 = User.find(@friendship.user_id)
             @user2 = User.find(@friendship.friend_id)
+            if @friendship.status == "Accepted"
+                @dm_channel = DmChannel.create(name: "#{@user1.username}_#{@user2.username}", owner_id: @user1.id)  
+                if @dm_channel 
+                    @dm_membership1 = DmMembership.create(user_id: @user1.id, dm_channel_id: @dm_channel.id)
+                    @dm_membership2 = DmMembership.create(user_id: @user2.id, dm_channel_id: @dm_channel.id)
+                end
+            end                
             # @dm_channel = @friendship.dm_channel
             FriendshipsChannel.broadcast_to(@user1, type: 'UPDATE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: @user2))
             FriendshipsChannel.broadcast_to(@user2, type: 'UPDATE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: @user1))

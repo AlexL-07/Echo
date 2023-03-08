@@ -13,5 +13,20 @@ class Friendship < ApplicationRecord
         foreign_key: :friend_id,
         primary_key: :id
 
+    def dm_channel
+        user1 = User.find(self.user_id)
+        user2 = User.find(self.friend_id)
+        hash = {}
+        user1.dm_channels.each do |u1_channel|
+            hash[u1_channel.id] = u1_channel
+        end
+
+        user2.dm_channels.each do |u2_channel|
+            if hash[u2_channel.id]
+                return u2_channel
+            end
+        end
+    end
+
 
 end

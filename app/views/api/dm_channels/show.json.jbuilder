@@ -5,3 +5,7 @@ json.owner do
         json.partial! 'api/users/user', user: @dm_channel.owner
     end
 end
+
+# json.dm_user do
+#     json.extract! *@dm_channel.users.select{ |user| user != current_user}, :id, :username, :user_tag
+# end

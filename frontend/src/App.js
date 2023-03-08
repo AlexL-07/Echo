@@ -58,10 +58,10 @@ function App() {
           <Route path="/register">
             <SignupFormPage />
           </Route>
-          <Route path="/channel/@me">
+          <Route path="/channel/@me/:dmChannelId">
             <UserHomePage />
           </Route>
-          <Route path="/channel/:dmChannelId">
+          <Route path="/channel/@me">
             <UserHomePage />
           </Route>
           <Route exact path="/servers/:serverId/channels/:channelId">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom"
 import { deleteFriendship, updateFriendship } from "../../../store/friendship";
 import logo from "../../../assets/logo_white.png";
@@ -10,6 +10,11 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
     const history = useHistory()
     const friend = friendObj.friend;
     const friendshipReceiver = !!friend.friend_id;
+    const friendship = friendships.find((el) => el.friend.id === friend.id)
+    const [hovered, setHovered] = useState(false);
+    const [acceptHovered, setAcceptHovered] = useState(false);
+    const [ignoreHovered, setIgnoreHovered] = useState(false);
+    console.log(friendship)
 
     const handleAcceptInvite = (e) => {
         const friendship = friendships.find(
@@ -34,7 +39,14 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
     return(
         <>
             <div className="options-divider" id="user-divider"></div>
-            <li className="friend-show-li">
+            <li className="friend-show-li" key={friend.id} 
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                onClick={()=>{
+                    if(friendship.status === "Accepted"){
+                        history.push(`/channel/@me/${friendship.dm_channel_id}`)
+                    }
+            }} >
                 <div className="friend-item-left">
                     <div className="user-circle-container">
                         <div className="user-circle" id={friendStatus()}>
@@ -42,7 +54,9 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
                         </div>
                     </div>
                     <div className="li-user-details">
-                        <p className="user-text">{friend.username} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{friend.user_tag}</p>
+                        <p className="user-text">{friend.username}
+                            <span className="hidden-user-tag" id={hovered ? "show-element" : undefined}>#{friend.user_tag}</span>
+                        </p>
                         {friendTab === "pending" ? (
                             <>
                                 {friendshipReceiver ? (

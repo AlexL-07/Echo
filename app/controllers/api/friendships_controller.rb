@@ -48,6 +48,8 @@ class Api::FriendshipsController < ApplicationController
         if @friendship.destroy
             @user1 = User.find(@friendship.user_id)
             @user2 = User.find(@friendship.friend_id)
+            @dm_channel = @friendship.dm_channel
+            @dm_channel.destroy
             FriendshipsChannel.broadcast_to(@user1, type: 'DESTROY_FRIENDSHIP', id: @friendship.id)
             FriendshipsChannel.broadcast_to(@user2, type: 'DESTROY_FRIENDSHIP', id: @friendship.id)
             render json: nil, status: :ok

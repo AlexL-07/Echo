@@ -4,7 +4,7 @@
   margin-left: 3px;
   margin-right: 10px;
   border-radius: 60%;
-  position: relative;
+  /* position: relative; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,10 +30,15 @@
     user-select: none;
     cursor: pointer;
     align-items: center;
+    justify-content: space-between;
 }
 
 .user-item:hover{
     background-color: #3F4248
+}
+
+.user-item-left{
+    display: flex;
 }
 
 .logo-icon {
@@ -50,6 +55,19 @@
 
 .top-user-text{
     margin-top: 0px;
+}
+
+.message-user-circle{
+    width: 42px;
+    height: 35px;
+    margin-left: 3px;
+    margin-right: 10px;
+    border-radius: 60%;
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
 }
 
 #online{

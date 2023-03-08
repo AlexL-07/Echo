@@ -79,7 +79,7 @@ const ServerForm = () => {
                     <label htmlFor="name" className="server-name-label secondary-text" id={errors.length ? "error-label" : undefined}>
                         SERVER NAME{" "}
                         <span id={errors.length ? "error-label" : undefined}>
-                            {errors.length ? `-${errors[0]}` : ""}
+                            {errors.length ? `-Name can't be blank` : ""}
                         </span>
                     </label>
                     <input type="text" name="name" id="name" autoFocus value={name} onChange={(e)=> setServerName(e.target.value)}/>

@@ -17,7 +17,7 @@ const DMForm = ({dmChannel}) => {
     }
 
     return(
-        <div className="message-form-container">
+        <div className="dm-message-form-container">
             <form className="message-form" onSubmit={handleSubmit}>
                 <input 
                     type="text"

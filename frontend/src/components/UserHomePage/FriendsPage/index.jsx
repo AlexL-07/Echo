@@ -60,9 +60,9 @@ const FriendsPage = ({ sessionUser, friendTab, friendships, friends }) => {
         return (
           <div className="friend-show-main">
             <div className="user-text-channels">
-              <p>ONLINE &#8212; {onlineFriends.length}</p>
+              <p className="user-home-top-text">ONLINE &#8212; {onlineFriends.length}</p>
             </div>
-            <ul>
+            <ul className="friend-items-ul">
               {onlineFriends.map((friendObj, idx) => (
                 <FriendsShowItem
                   friendTab={friendTab}
@@ -79,9 +79,9 @@ const FriendsPage = ({ sessionUser, friendTab, friendships, friends }) => {
         return (
           <div className="friend-show-main">
             <div className="user-text-channels">
-              <p>ALL FRIENDS &#8212; {allFriends.length}</p>
+              <p className="user-home-top-text">ALL FRIENDS &#8212; {allFriends.length}</p>
             </div>
-            <ul>
+            <ul className="friend-items-ul">
               {allFriends.map((friendObj, idx) => (
                 <FriendsShowItem
                   friendTab={friendTab}
@@ -98,9 +98,9 @@ const FriendsPage = ({ sessionUser, friendTab, friendships, friends }) => {
         return (
           <div className="friend-show-main">
             <div className="user-text-channels">
-              <p>PENDING &#8212; {pendingFriends.length}</p>
+              <p className="user-home-top-text">PENDING &#8212; {pendingFriends.length}</p>
             </div>
-            <ul>
+            <ul className="friend-items-ul">
               {pendingFriends.map((friendObj, idx) => (
                 <FriendsShowItem
                   friendTab={friendTab}
@@ -117,9 +117,9 @@ const FriendsPage = ({ sessionUser, friendTab, friendships, friends }) => {
         return (
           <div className="friend-show-main">
             <div className="user-text-channels">
-              <p>BLOCKED &#8212; {blockedFriends.length}</p>
+              <p className="user-home-top-text">BLOCKED &#8212; {blockedFriends.length}</p>
             </div>
-            <ul>
+            <ul className="friend-items-ul">
               {blockedFriends.map((friendObj, idx) => (
                 <FriendsShowItem
                   friendTab={friendTab}

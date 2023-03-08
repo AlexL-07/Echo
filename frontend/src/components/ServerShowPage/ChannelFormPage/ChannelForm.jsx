@@ -45,7 +45,7 @@ const ChannelForm = () => {
                     <label htmlFor="name" className="channel-name-label secondary-text" id={errors.length ? "error-label" : undefined}>
                         CHANNEL NAME{" "}
                         <span id={errors.length ? "error-label" : undefined}>
-                            {errors.length ? `-${errors[0]}` : ""}
+                            {errors.length ? `-Name can't be blank` : ""}
                         </span>
                     </label>
                     <input type="text" name="name" id="name" autoFocus value={name} onChange={(e)=> setChannelName(e.target.value)}/>

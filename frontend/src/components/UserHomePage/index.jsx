@@ -26,7 +26,6 @@ const UserHomePage = () => {
         dmChannelId: el.dmChannelId
     }));
 
-    console.log(dmChannel)
 
     const notiCount = friends.filter(
         (el) => el.status === "Pending" && !el.friend.user_id
@@ -105,7 +104,7 @@ const UserHomePage = () => {
             </div>
             <div className="user-main-home">
                 <div className="user-home-left">
-                    <p>Direct Messages</p>
+                    <p className="user-home-top-text">DIRECT MESSAGES</p>
                     <ServerUserList />
                 </div>
                 <div className="user-home-right">

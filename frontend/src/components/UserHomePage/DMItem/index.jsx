@@ -49,7 +49,6 @@ const DMItem = ({message}) => {
         if(message.author.status === "Do Not Disturb"){
           return ("dnd");
       } else {
-          console.log(message.author)
           return (message.author.status.toLowerCase())
       }
     }

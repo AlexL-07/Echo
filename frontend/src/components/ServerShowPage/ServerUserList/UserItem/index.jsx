@@ -1,22 +1,22 @@
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import BlockIcon from '@mui/icons-material/Block';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import CancelIcon from '@mui/icons-material/Cancel';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from "../../../../assets/logo_white.png";
 import { createFriendship, updateFriendship, deleteFriendship } from '../../../../store/friendship';
 import { useHistory, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import YesIcon from "@mui/icons-material/Check";
+import NoIcon from "@mui/icons-material/Close";
 
 const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
     const {serverId} = useParams();
     const sessionUser = useSelector((store) => store.session.user);
     const dispatch = useDispatch();
     const history = useHistory();
-    const friendship = friendships.find((el) => el.friend.id === user.id)
-    console.log(friendship)
+    const friendship = friendships.find((el) => el.friend.id === user.id);
+    const [hovered, setHovered] = useState(false)
 
     const handleAddFriend = () => {
         const friendshipData = { user_id: sessionUser.id, friend_id: user.id};
@@ -57,7 +57,7 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
             if(friendIds.includes(user.id)){
                 return(
                     <>
-                        <div className='friendship-buttons'>
+                        <div className='friendship-buttons' id={hovered ? "show-element" : undefined}>
                             <PersonRemoveIcon onClick={handleDelete}/>
                             <LockPersonIcon onClick={blockFriend}/>
                         </div>
@@ -66,7 +66,7 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
             } else if(blockedIds.includes(user.id)){
                 return(
                     <>
-                        <div className='friendship-buttons'>
+                        <div className='friendship-buttons' id={hovered ? "show-element" : undefined}>
                             <LockOpenIcon onClick={handleDelete}/>
                         </div>
                     </>
@@ -74,9 +74,9 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
             } else if (pendingIds.includes(user.id)) {
                 return(
                     <>
-                        <div className='friendship-buttons'>
-                            <TaskAltIcon onClick={handleAcceptFriend}/>
-                            <CancelIcon onClick={handleDelete}/>
+                        <div className='friendship-buttons' id={hovered ? "show-element" : undefined}>
+                            <YesIcon onClick={handleAcceptFriend}/>
+                            <NoIcon onClick={handleDelete}/>
                             <LockPersonIcon onClick={blockFriend}/>
                         </div>
                     </>
@@ -85,7 +85,7 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
             } else {
                 return(
                     <>
-                        <div className='friendship-buttons'>
+                        <div className='friendship-buttons' id={hovered ? "show-element" : undefined}>
                             <PersonAddIcon onClick={handleAddFriend}/>
                             <LockPersonIcon onClick={handleBlockUser}/>
                         </div>
@@ -100,7 +100,9 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
     if(user.status === "Do Not Disturb"){
         return(
             <div className="user-list-item">
-                <li key={user.id} className="user-item" >
+                <li key={user.id} className="user-item" 
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}>
                     <div className='user-item-left'>
                         <div className="user-circle-container">
                             <div className="user-circle" id="dnd">
@@ -118,8 +120,11 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
     } else {
         return(
             <div className="user-list-item">
-                <li key={user.id} className="user-item" onClick={()=>{
-                    if(!serverId && user.id !== sessionUser.id){
+                <li key={user.id} className="user-item" 
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                onClick={()=>{
+                    if(!serverId && user.id !== sessionUser.id && friendship.status === "Accepted"){
                         history.push(`/channel/@me/${friendship.dm_channel_id}`)
                     }
                 }}>

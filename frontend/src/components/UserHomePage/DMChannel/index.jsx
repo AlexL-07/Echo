@@ -56,7 +56,7 @@ const DMChannel = () => {
 
     return (
         <>
-            <div className="channel-show-body" ref={ref}>
+            <div className="dm-channel-show-body" ref={ref}>
                 <div className="channel-show-header" >
                     <img src={hashtag} alt="hash-tagicon" className="channel-header-hashtag" />
                     <p>{`This is the start of your conversation.`}</p>

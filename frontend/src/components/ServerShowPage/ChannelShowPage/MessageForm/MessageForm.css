@@ -4,7 +4,7 @@
     border-radius: 8px;
     padding-left: 16px;
     z-index: 2;
-    width: 1300px;
+    /* width: 1300px; */
 }
 
 .message-form input {
@@ -33,6 +33,7 @@
     position: fixed;
     left: 337px;
     bottom: 10px;
+    width: calc(70% - 28px);
 }
 
 .message-form > input::placeholder{

@@ -19,7 +19,7 @@ const ServerInvite = () => {
                 </center>
             </div>
             <div className="server-invite-link">
-                <p>{`localhost:3000/invite/${server.invite_key}`}</p>
+                <p>{`echo-cbwl.onrender.com/invite/${server.invite_key}`}</p>
             </div>
             <div className="channel-form-footer">
                 <button type="button" id="back-button" onClick={() => setIsServerInviteOpen(false)}>

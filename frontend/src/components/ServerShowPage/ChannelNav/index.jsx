@@ -34,7 +34,7 @@ const ChannelNav = () => {
                 <ul className="channel-links-container text">
                     {Object.values(channels)?.map((channel)=>(
                         <NavLink to={`/servers/${serverId}/channels/${channel.id}`} key={channel.id} className="channel-name">
-                            <li><p># {channel.name}</p></li>
+                            <li key={channel?.id}><p># {channel.name}</p></li>
                         </NavLink>
                     ))}
                 </ul>

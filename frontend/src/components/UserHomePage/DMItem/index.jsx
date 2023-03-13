@@ -10,6 +10,7 @@ import logo from "../../../assets/logo_white.png"
 const DMItem = ({message}) => {
     const [msgEdit, setMsgEdit] = useState(false);
     const [body, setBody] = useState(message?.body);
+    const [hovered, setHovered] = useState(false)
     const sessionUser = useSelector((store) => store.session.user);
     const {dmChannelId} = useParams();
     const dispatch = useDispatch();
@@ -79,7 +80,9 @@ const DMItem = ({message}) => {
 
       return(
         <>
-        <li className="channel-message" key={message?.id}>
+        <li className="channel-message" key={message?.id}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}>
             <div className="message-body-container">
                 <div className="user-circle" id={authorStatus()}>
                     <img src={logo} alt="logo-icon" className="logo-icon"/>
@@ -122,7 +125,9 @@ const DMItem = ({message}) => {
                     } 
                 </div>
             </div>
-            {MessageUpdateDelete(message)}
+            <div className="message-crud-buttons" id={hovered ? "show-element" : undefined}>
+              {MessageUpdateDelete(message)}
+            </div>
         </li>
         </>
     )

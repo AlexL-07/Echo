@@ -6,6 +6,9 @@ import YesIcon from "@mui/icons-material/Check";
 import NoIcon from "@mui/icons-material/Close";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import LockPersonIcon from '@mui/icons-material/LockPerson';
 import { useDispatch } from "react-redux";
 
 const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
@@ -21,11 +24,11 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
             (el) => el.id === friendObj.friendshipId
         );
         const friendshipData = {...friendship, status: "Accepted"};
-        updateFriendship(friendshipData)
+        dispatch(updateFriendship(friendshipData))
     }
 
     const handleIgnoreInvite = (e) => {
-        deleteFriendship(friendObj.friendshipId)
+        dispatch(deleteFriendship(friendObj.friendshipId))
     }
 
     const friendStatus = () => {
@@ -37,11 +40,15 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
     }
 
     const handleDelete = (e) => {
-        e.preventDefault();
         const friendshipId = friendships.find(
             (el) => el.friend.id === friend.id
           ).id;
         dispatch(deleteFriendship(friendshipId))
+    }
+
+    const blockFriend = (e) => {
+        const friendshipData = { ...friendship, status: "Blocked" };
+        dispatch(updateFriendship(friendshipData))
     }
 
     return(
@@ -49,12 +56,7 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
             <div className="options-divider" id="user-divider"></div>
             <li className="friend-show-li" key={friend.id} 
                 onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-                onClick={()=>{
-                    if(friendship.status === "Accepted"){
-                        history.push(`/channel/@me/${friendship.dm_channel_id}`)
-                    }
-            }} >
+                onMouseLeave={() => setHovered(false)}>
                 <div className="friend-item-left">
                     <div className="user-circle-container">
                         <div className="user-circle" id={friendStatus()}>
@@ -95,11 +97,16 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
                     ) : (
                         <>
                             {friendTab !== "blocked" ? (
-                                <div className="user-item-option" onClick={() => history.push(`/me/channels/${friendObj.dmChannelId}`)}>
-                                    <ChatBubbleIcon sx={{ fontSize: "18px", color: "#DCDDDE" }}/>
+                                <>
+                                <div className="user-item-option" id={hovered ? "show-element" : undefined} onClick={handleDelete}>
+                                    <PersonRemoveIcon sx={{ fontSize: "18px", color: "#DCDDDE" }} />
                                 </div>
+                                <div className="user-item-option" id={hovered ? "show-element" : undefined} onClick={blockFriend}>
+                                    <LockPersonIcon sx={{ fontSize: "18px", color: "#DCDDDE" }} />
+                                </div>
+                                </>
                             ) : (
-                                <div className='friendship-buttons' id={hovered ? "show-element" : undefined}>
+                                <div className="user-item-option" id={hovered ? "show-element" : undefined}>
                                     <LockOpenIcon sx={{ fontSize: "18px", color: "#DCDDDE" }} onClick={handleDelete}/>
                                 </div>
                             )}

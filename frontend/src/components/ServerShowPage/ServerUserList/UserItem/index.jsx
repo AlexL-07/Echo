@@ -19,20 +19,17 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
     const [hovered, setHovered] = useState(false)
 
     const handleAddFriend = (e) => {
-        e.preventDefault();
         const friendshipData = { user_id: sessionUser.id, friend_id: user.id, status: "Pending"};
         dispatch(createFriendship(friendshipData))
     }
 
     const blockFriend = (e) => {
-        e.preventDefault();
         const friendship = friendships.find((el) => el.friend.id === user.id);
         const friendshipData = { ...friendship, status: "Blocked" };
         dispatch(updateFriendship(friendshipData))
     }
 
     const handleAcceptFriend = (e) => {
-        e.preventDefault();
         const friendship = friendships.find((el) => el.friend.id === user.id);
         console.log(friendship)
         const friendshipData = { ...friendship, status: "Accepted" };
@@ -40,13 +37,11 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
     }
 
     const handleBlockUser = (e) => {
-        e.preventDefault();
         const friendshipData = { user_id: sessionUser.id, friend_id: user.id, status: "Blocked"};
         dispatch(createFriendship(friendshipData))
     }
 
     const handleDelete = (e) => {
-        e.preventDefault();
         const friendshipId = friendships.find(
             (el) => el.friend.id === user.id
           ).id;
@@ -143,9 +138,12 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
                         </div>
                             <p className="user-text">{user.username}</p>
                     </div>
+                    {serverId ? 
                     <div className='user-item-right'>
                         {friendShipButtons()}
                     </div>
+                    : undefined
+                    }
                 </li>
             </div>
         )

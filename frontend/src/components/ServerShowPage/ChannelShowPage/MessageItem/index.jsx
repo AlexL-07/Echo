@@ -8,6 +8,7 @@ import { updateMessage, deleteMessage } from "../../../../store/message";
 
 const MessageItem = ({message}) => {
     const [msgCrudActive, setMsgcrudActive] = useState(false);
+    const [hovered, setHovered] = useState(false)
     const [msgEdit, setMsgEdit] = useState(false);
     const [body, setBody] = useState(message?.body);
     const sessionUser = useSelector((store) => store.session.user);
@@ -82,7 +83,9 @@ const MessageItem = ({message}) => {
 
     return(
         <>
-        <li className="channel-message" key={message?.id}>
+        <li className="channel-message" key={message?.id} 
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}>
             <div className="message-body-container">
                 <div className="message-user-circle" id={authorStatus()}>
                     <img src={logo} alt="logo-icon" className="logo-icon"/>
@@ -93,6 +96,7 @@ const MessageItem = ({message}) => {
                         <div className="message-date">{formatMessageDate(message?.created_at)}</div>
                     </div>
                     {msgEdit ? (
+                      <div className="edit-message-form-container">
                         <form className="edit-message-form" onSubmit={handleSubmit}>
                         <input
                           type="text"
@@ -117,6 +121,7 @@ const MessageItem = ({message}) => {
                           &bull; enter to <span onClick={handleSubmit}>save</span>
                         </p>
                       </form>
+                      </div>
                         ) : (
                             <div className="message-content">
                                 {message.content}
@@ -125,7 +130,9 @@ const MessageItem = ({message}) => {
                     } 
                 </div>
             </div>
-            {MessageUpdateDelete(message)}
+            <div className="message-crud-buttons" id={hovered ? "show-element" : undefined}>
+              {MessageUpdateDelete(message)}
+            </div>
         </li>
         </>
     )

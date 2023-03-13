@@ -5,8 +5,9 @@ class Api::FriendshipsController < ApplicationController
         if @friendship.save
             @user1 = User.find(@friendship.user_id)
             @user2 = User.find(@friendship.friend_id)
-            FriendshipsChannel.broadcast_to(@user1, type: 'RECEIVE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: @user2))
-            FriendshipsChannel.broadcast_to(@user2, type: 'RECEIVE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: @user1))
+            FriendshipsChannel.broadcast_to(@user1, type: 'RECEIVE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: current_user))
+            FriendshipsChannel.broadcast_to(@user2, type: 'RECEIVE_FRIENDSHIP', **from_template('api/friendships/show', friendship: @friendship, current_user: current_user))
+            # render :show
             render json: nil, status: :ok
         else
             render json: { errors: @friendship.errors.full_messages }, status: :unprocessable_entity 
@@ -23,8 +24,8 @@ class Api::FriendshipsController < ApplicationController
     end
 
     def update
-        @friendship = Friendship.find(params[:id])
-        if @friendship.update(status_params)
+        @friendship = Friendship.find_by(id: params[:id])
+        if @friendship.update(friendship_params)
             @user1 = User.find(@friendship.user_id)
             @user2 = User.find(@friendship.friend_id)
             if @friendship.status == "Accepted"
@@ -44,12 +45,13 @@ class Api::FriendshipsController < ApplicationController
     end
 
     def destroy
-        @friendship = Friendship.find(params[:id])
+        @friendship = Friendship.find_by(id: params[:id])
         if @friendship.destroy
             @user1 = User.find(@friendship.user_id)
             @user2 = User.find(@friendship.friend_id)
-            @dm_channel = @friendship.dm_channel
-            @dm_channel.destroy
+            if @friendship.dm_channel
+                @friendship.dm_channel.destroy
+            end
             FriendshipsChannel.broadcast_to(@user1, type: 'DESTROY_FRIENDSHIP', id: @friendship.id)
             FriendshipsChannel.broadcast_to(@user2, type: 'DESTROY_FRIENDSHIP', id: @friendship.id)
             render json: nil, status: :ok
@@ -60,7 +62,7 @@ class Api::FriendshipsController < ApplicationController
 
     private 
     def friendship_params
-        params.require(:friendship).permit(:user_id, :friend_id, :status)
+        params.require(:friendship).permit(:id, :created_at, :updated_at, :user_id, :friend_id, :status)
     end
 
     def status_params

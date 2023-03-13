@@ -35,30 +35,30 @@ const ServerUserList = ({users}) => {
     const dndUsers = [];
     const offlineUsers = [];
 
-    useEffect(() => {
-        const subscription = consumer.subscriptions.create(
-          { channel: "FriendshipsChannel", id: sessionUserId },
-          {
-            received: (friendshipObj) => {
-              switch (friendshipObj.type) {
-                case "RECEIVE_FRIENDSHIP":
-                  dispatch(addFriendship(friendshipObj));
-                  break;
-                case "DESTROY_FRIENDSHIP":
-                  dispatch(removeFriendship(friendshipObj.id));
-                  break;
-                case "UPDATE_FRIENDSHIP":
-                  dispatch(addFriendship(friendshipObj));
-                  break;
-                default:
-                  console.log("Unhandled broadcast: ", friendshipObj.type);
-                  break;
-              }
-            },
-          }
-        );
-        return () => subscription?.unsubscribe();
-      }, [sessionUserId, dispatch]);
+    // useEffect(() => {
+    //     const subscription = consumer.subscriptions.create(
+    //       { channel: "FriendshipsChannel", id: sessionUserId },
+    //       {
+    //         received: (friendshipObj) => {
+    //           switch (friendshipObj.type) {
+    //             case "RECEIVE_FRIENDSHIP":
+    //               dispatch(addFriendship(friendshipObj));
+    //               break;
+    //             case "DESTROY_FRIENDSHIP":
+    //               dispatch(removeFriendship(friendshipObj.id));
+    //               break;
+    //             case "UPDATE_FRIENDSHIP":
+    //               dispatch(addFriendship(friendshipObj));
+    //               break;
+    //             default:
+    //               console.log("Unhandled broadcast: ", friendshipObj.type);
+    //               break;
+    //           }
+    //         },
+    //       }
+    //     );
+    //     return () => subscription?.unsubscribe();
+    //   }, [sessionUserId, dispatch]);
 
     useEffect(() => {
         const subscription = consumer.subscriptions.create(

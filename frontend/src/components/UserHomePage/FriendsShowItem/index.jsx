@@ -5,6 +5,8 @@ import logo from "../../../assets/logo_white.png";
 import YesIcon from "@mui/icons-material/Check";
 import NoIcon from "@mui/icons-material/Close";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { useDispatch } from "react-redux";
 
 const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
     const history = useHistory()
@@ -12,6 +14,7 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
     const friendshipReceiver = !!friend.friend_id;
     const friendship = friendships.find((el) => el.friend.id === friend.id)
     const [hovered, setHovered] = useState(false);
+    const dispatch = useDispatch();
 
     const handleAcceptInvite = (e) => {
         const friendship = friendships.find(
@@ -31,6 +34,14 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
         } else {
             return (friend.status.toLowerCase());
         }
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        const friendshipId = friendships.find(
+            (el) => el.friend.id === friend.id
+          ).id;
+        dispatch(deleteFriendship(friendshipId))
     }
 
     return(
@@ -83,9 +94,13 @@ const FriendsShowItem = ({friendTab, friendObj, friendships}) => {
                         </>
                     ) : (
                         <>
-                            {friendTab !== "blocked" && (
+                            {friendTab !== "blocked" ? (
                                 <div className="user-item-option" onClick={() => history.push(`/me/channels/${friendObj.dmChannelId}`)}>
                                     <ChatBubbleIcon sx={{ fontSize: "18px", color: "#DCDDDE" }}/>
+                                </div>
+                            ) : (
+                                <div className='friendship-buttons' id={hovered ? "show-element" : undefined}>
+                                    <LockOpenIcon sx={{ fontSize: "18px", color: "#DCDDDE" }} onClick={handleDelete}/>
                                 </div>
                             )}
                         </>

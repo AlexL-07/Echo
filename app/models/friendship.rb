@@ -22,10 +22,11 @@ class Friendship < ApplicationRecord
         end
 
         user2.dm_channels.each do |u2_channel|
-            if hash[u2_channel.id]
+            if hash.has_key?(u2_channel.id)
                 return u2_channel
             end
         end
+        return nil
     end
 
 

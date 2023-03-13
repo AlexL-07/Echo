@@ -40,24 +40,35 @@ export const fetchFriendships = () => async dispatch => {
 //   //   dispatch(addFriendship(friendship))
 //   // }
 // };
-export const createFriendship = (friendshipData) => {
-  csrfFetch("/api/friendships", {
+export const createFriendship = (friendshipData) => async (dispatch) => {
+  const res = await csrfFetch("/api/friendships", {
     method: "POST",
     body: JSON.stringify(friendshipData)
   });
+  // if(res.ok){
+  //   const data = await res.json();
+  //   dispatch(addFriendship(data))
+  // }
 };
 
-export const updateFriendship = (friendshipData) => {
-  csrfFetch(`/api/friendships/${friendshipData.id}`, {
+export const updateFriendship = (friendshipData) => async (dispatch) => {
+  const res = await csrfFetch(`/api/friendships/${friendshipData.id}`, {
     method: "PATCH",
     body: JSON.stringify(friendshipData)
   });
+  // if(res.ok){
+  //   const data = await res.json();
+  //   dispatch(addFriendship(data))
+  // }
 };
 
-export const deleteFriendship = (friendshipId) => {
-  csrfFetch(`/api/friendships/${friendshipId}`, {
+export const deleteFriendship = (friendshipId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/friendships/${friendshipId}`, {
     method: "DELETE"
   });
+  if(res.ok){
+    dispatch(removeFriendship(friendshipId))
+  }
 };
 
 
@@ -68,7 +79,8 @@ const friendshipReducer = (state = {}, action) => {
     case ADD_FRIENDSHIP:
       return { ...state, [action.payload.id]: action.payload };
     case REMOVE_FRIENDSHIP:
-      const { [action.payload]: _, ...newState } = state;
+      const newState = {...state};
+      delete newState[action.payload];
       return newState;
     default:
       return state;

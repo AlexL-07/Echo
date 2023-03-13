@@ -17,7 +17,7 @@ const DMItem = ({message}) => {
     const newMessage = {id: message.id, author_id: message.author_id, content: body, dm_channel_id: message.dm_channel_id }
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(updateDirectMessage(dmChannelId, newMessage));
+        dispatch(updateDirectMessage(newMessage));
         setMsgEdit(false)
     }
 
@@ -42,7 +42,7 @@ const DMItem = ({message}) => {
     }
 
     const handleMessageDelete = (messageId) => {
-        return dispatch(deleteDirectMessage(dmChannelId, messageId))
+        return dispatch(deleteDirectMessage(messageId))
     }
 
     const authorStatus = () => {

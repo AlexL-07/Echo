@@ -18,29 +18,35 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
     const friendship = friendships.find((el) => el.friend.id === user.id);
     const [hovered, setHovered] = useState(false)
 
-    const handleAddFriend = () => {
-        const friendshipData = { user_id: sessionUser.id, friend_id: user.id};
+    const handleAddFriend = (e) => {
+        e.preventDefault();
+        const friendshipData = { user_id: sessionUser.id, friend_id: user.id, status: "Pending"};
         dispatch(createFriendship(friendshipData))
     }
 
-    const blockFriend = () => {
+    const blockFriend = (e) => {
+        e.preventDefault();
         const friendship = friendships.find((el) => el.friend.id === user.id);
         const friendshipData = { ...friendship, status: "Blocked" };
         dispatch(updateFriendship(friendshipData))
     }
 
-    const handleAcceptFriend = () => {
+    const handleAcceptFriend = (e) => {
+        e.preventDefault();
         const friendship = friendships.find((el) => el.friend.id === user.id);
+        console.log(friendship)
         const friendshipData = { ...friendship, status: "Accepted" };
         dispatch(updateFriendship(friendshipData))
     }
 
-    const handleBlockUser = () => {
+    const handleBlockUser = (e) => {
+        e.preventDefault();
         const friendshipData = { user_id: sessionUser.id, friend_id: user.id, status: "Blocked"};
         dispatch(createFriendship(friendshipData))
     }
 
-    const handleDelete = () => {
+    const handleDelete = (e) => {
+        e.preventDefault();
         const friendshipId = friendships.find(
             (el) => el.friend.id === user.id
           ).id;
@@ -123,7 +129,8 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
                 <li key={user.id} className="user-item" 
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
-                onClick={()=>{
+                onClick={(e)=>{
+                    e.stopPropagation()
                     if(!serverId && user.id !== sessionUser.id && friendship.status === "Accepted"){
                         history.push(`/channel/@me/${friendship.dm_channel_id}`)
                     }

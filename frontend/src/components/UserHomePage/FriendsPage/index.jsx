@@ -33,21 +33,21 @@ const FriendsPage = ({ sessionUser, friendTab, friendships, friends }) => {
 
     useEffect(() => {
         const subscription = consumer.subscriptions.create(
-          { channel: "FriendshipsChannel", id: sessionUserId },
+          { channel: 'FriendshipsChannel', id: sessionUserId },
           {
             received: (friendshipObj) => {
               switch (friendshipObj.type) {
-                case "RECEIVE_FRIENDSHIP":
+                case 'RECEIVE_FRIENDSHIP':
                   dispatch(addFriendship(friendshipObj));
                   break;
-                case "DESTROY_FRIENDSHIP":
+                case 'DESTROY_FRIENDSHIP':
                   dispatch(removeFriendship(friendshipObj.id));
                   break;
-                case "UPDATE_FRIENDSHIP":
+                case 'UPDATE_FRIENDSHIP':
                   dispatch(addFriendship(friendshipObj));
                   break;
                 default:
-                  console.log("Unhandled broadcast: ", friendshipObj.type);
+                  console.log('Unhandled broadcast: ', friendshipObj.type);
                   break;
               }
             },

@@ -31,7 +31,6 @@ const UserItem = ({ user, friendIds, friendships, blockedIds, pendingIds }) => {
 
     const handleAcceptFriend = (e) => {
         const friendship = friendships.find((el) => el.friend.id === user.id);
-        console.log(friendship)
         const friendshipData = { ...friendship, status: "Accepted" };
         dispatch(updateFriendship(friendshipData))
     }
